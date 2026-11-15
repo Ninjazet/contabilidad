@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Centro de Tutoriales y Manuales — ContaGestión</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --surface: #1e293b;
+      --border: #334155;
+      --emerald: #10b981;
+      --emerald-dark: #059669;
+      --text: #f8fafc;
+      --muted: #94a3b8;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 0.65rem 1.25rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .brand-badge {
+      width: 2.2rem;
+      height: 2.2rem;
+      border-radius: 0.5rem;
+      background: linear-gradient(135deg, var(--emerald), var(--emerald-dark));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 1rem;
+      color: #022c22;
+      flex-shrink: 0;
+    }
+    .brand-title h1 {
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+    .brand-title p {
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+    .tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      align-items: center;
+    }
+    .tab-btn {
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--muted);
+      border: 1px solid var(--border);
+      padding: 0.45rem 0.85rem;
+      border-radius: 0.5rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .tab-btn:hover {
+      color: var(--text);
+      border-color: var(--emerald);
+      background: rgba(16, 185, 129, 0.08);
+    }
+    .tab-btn.active {
+      background: var(--emerald);
+      color: #022c22;
+      border-color: var(--emerald);
+      font-weight: 700;
+    }
+    .actions {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .btn-link {
+      text-decoration: none;
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 0.45rem 0.8rem;
+      border-radius: 0.5rem;
+      border: 1px solid var(--border);
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.05);
+      transition: all 0.15s ease;
+      white-space: nowrap;
+    }
+    .btn-link:hover {
+      border-color: var(--emerald);
+      background: rgba(16, 185, 129, 0.12);
+    }
+    .btn-primary {
+      background: var(--emerald-dark);
+      border-color: var(--emerald);
+      color: #fff;
+    }
+    .btn-primary:hover {
+      background: var(--emerald);
+      color: #022c22;
+    }
+    main {
+      flex: 1;
+      width: 100%;
+      position: relative;
+      background: #ffffff;
+    }
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <div class="brand-badge">CG</div>
+      <div class="brand-title">
+        <h1>ContaGestión — Centro de Tutoriales y Manuales</h1>
+        <p>Selecciona cualquier guía para consultarla en pantalla</p>
+      </div>
+    </div>
+
+    <nav class="tabs" id="tutorial-tabs">
+      <button class="tab-btn active" data-src="/TUTORIAL_CON_IMAGENES.html">
+        1. Tutorial con Imágenes
+      </button>
+      <button class="tab-btn" data-src="/TUTORIAL_ACCESO_TOTAL.html">
+        2. Tutorial Acceso Total (Admin)
+      </button>
+      <button class="tab-btn" data-src="/TUTORIAL_POR_ROLES.html">
+        3. Tutorial por Roles
+      </button>
+      <button class="tab-btn" data-src="/manual-usuario.html">
+        4. Manual de Usuario
+      </button>
+      <button class="tab-btn" data-src="/DOCUMENTACION.html">
+        5. Documentación Técnica
+      </button>
+      <button class="tab-btn" data-src="/REPORTE_PRODUCCION.html">
+        6. Reporte de Producción
+      </button>
+    </nav>
+
+    <div class="actions">
+      <a id="open-direct" class="btn-link" href="/TUTORIAL_CON_IMAGENES.html" target="_blank" rel="noopener">
+        Abrir pestaña aparte ↗
+      </a>
+      <a class="btn-link btn-primary" href="https://cet-drawing-injured-queue.trycloudflare.com" target="_blank" rel="noopener">
+        Ir al Programa →
+      </a>
+    </div>
+  </header>
+
+  <main>
+    <iframe id="viewer" src="/TUTORIAL_CON_IMAGENES.html" title="Visor de Tutoriales ContaGestión"></iframe>
+  </main>
+
+  <script>
+    const buttons = document.querySelectorAll('.tab-btn');
+    const viewer = document.getElementById('viewer');
+    const openDirect = document.getElementById('open-direct');
+
+    buttons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        buttons.forEach((b) => b.classList.remove('active'));
+        btn.classList.add('active');
+        const src = btn.getAttribute('data-src');
+        viewer.src = src;
+        openDirect.href = src;
+      });
+    });
+  </script>
+</body>
+</html>
+

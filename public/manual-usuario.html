@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manual de Usuario — Sistema de Control Interno Contable</title>
+<style>
+  :root {
+    --bg: #f8f9fb; --surface: #ffffff; --border: #e5e7eb;
+    --text: #1a202c; --muted: #64748b; --primary: #1e3a5f;
+    --accent: #2563eb; --green: #059669; --amber: #d97706; --red: #dc2626;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); line-height: 1.65; }
+  .layout { display: flex; min-height: 100vh; }
+  nav { width: 280px; background: var(--primary); color: #fff; padding: 24px 0; position: sticky; top: 0; height: 100vh; overflow-y: auto; flex-shrink: 0; }
+  nav .brand { padding: 0 24px 20px; border-bottom: 1px solid rgba(255,255,255,.15); margin-bottom: 12px; }
+  nav .brand h2 { font-size: 16px; font-weight: 700; }
+  nav .brand p { font-size: 12px; opacity: .7; }
+  nav a { display: block; padding: 9px 24px; color: rgba(255,255,255,.85); text-decoration: none; font-size: 14px; border-left: 3px solid transparent; }
+  nav a:hover { background: rgba(255,255,255,.08); color: #fff; }
+  nav a.active { background: rgba(255,255,255,.12); border-left-color: #60a5fa; color: #fff; font-weight: 600; }
+  nav .group { padding: 14px 24px 6px; font-size: 11px; text-transform: uppercase; letter-spacing: .08em; opacity: .55; }
+  main { flex: 1; padding: 48px 56px; max-width: 980px; }
+  h1 { font-size: 32px; margin-bottom: 8px; }
+  .subtitle { color: var(--muted); margin-bottom: 32px; font-size: 15px; }
+  h2 { font-size: 24px; margin: 40px 0 12px; padding-top: 20px; border-top: 1px solid var(--border); }
+  h3 { font-size: 17px; margin: 24px 0 8px; color: var(--primary); }
+  p { margin-bottom: 12px; }
+  ul, ol { margin: 0 0 16px 24px; }
+  li { margin-bottom: 6px; }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px 24px; margin: 16px 0; box-shadow: 0 1px 3px rgba(0,0,0,.04); }
+  .tip { border-left: 4px solid var(--green); background: #ecfdf5; }
+  .warn { border-left: 4px solid var(--amber); background: #fffbeb; }
+  .danger { border-left: 4px solid var(--red); background: #fef2f2; }
+  .tip strong:first-child, .warn strong:first-child, .danger strong:first-child { display: inline-block; margin-bottom: 4px; }
+  table { width: 100%; border-collapse: collapse; margin: 16px 0; background: var(--surface); font-size: 14px; }
+  th { background: var(--primary); color: #fff; text-align: left; padding: 10px 14px; font-weight: 600; }
+  td { border: 1px solid var(--border); padding: 9px 14px; vertical-align: top; }
+  tr:nth-child(even) td { background: #f8fafc; }
+  .badge { display: inline-block; padding: 2px 10px; border-radius: 999px; font-size: 12px; font-weight: 600; margin-right: 4px; }
+  .b-red { background: #fee2e2; color: #991b1b; }
+  .b-amber { background: #fef3c7; color: #92400e; }
+  .b-green { background: #d1fae5; color: #065f46; }
+  .b-sky { background: #e0f2fe; color: #075985; }
+  .b-gray { background: #e5e7eb; color: #374151; }
+  code { background: #eef2f7; padding: 2px 6px; border-radius: 4px; font-family: 'Consolas', monospace; font-size: 13px; color: #0f3a6d; }
+  .step-num { display: inline-flex; align-items: center; justify-content: center; width: 26px; height: 26px; background: var(--accent); color: #fff; border-radius: 50%; font-weight: 700; font-size: 13px; margin-right: 8px; }
+  .flow { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin: 14px 0; }
+  .flow span { background: var(--primary); color: #fff; padding: 6px 12px; border-radius: 8px; font-size: 12.5px; font-weight: 500; }
+  .flow i { color: var(--muted); font-style: normal; }
+  @media (max-width: 900px) {
+    nav { position: static; width: 100%; height: auto; }
+    main { padding: 24px; }
+    .layout { flex-direction: column; }
+  }
+  @media print { nav { display: none; } main { padding: 0; } .card { break-inside: avoid; } }
+</style>
+</head>
+<body>
+<div class="layout">
+<nav id="nav">
+  <div class="brand">
+    <h2>Control Interno Contable</h2>
+    <p>Manual de usuario · v1.0 · Oct 2026</p>
+  </div>
+  <div class="group">Inicio</div>
+  <a href="#introduccion">1. Introducción y acceso</a>
+  <a href="#roles">2. Roles y permisos</a>
+  <a href="#pantallas">3. Mapa de pantallas</a>
+  <div class="group">Operación diaria</div>
+  <a href="#clientes">4. Clientes</a>
+  <a href="#expedientes">5. Expedientes y documentos</a>
+  <a href="#checklist">6. Checklist</a>
+  <div class="group">Control mensual</div>
+  <a href="#control-maestro">7. Control Maestro</a>
+  <a href="#informativas">8. Informativas</a>
+  <a href="#dmc">9. Checklist DMC</a>
+  <a href="#quimistan">10. Visitas Quimistán</a>
+  <a href="#cobros">11. Cobros y Caja</a>
+  <a href="#contabilidad">12. Contabilidad Post-Día 10</a>
+  <div class="group">Cierre</div>
+  <a href="#calendario">13. Calendario</a>
+  <a href="#personal">14. Personal y Auditoría</a>
+  <a href="#cronograma">15. Cronograma del mes</a>
+  <a href="#faq">16. Preguntas frecuentes</a>
+</nav>
+
+<main>
+
+<h1>Manual de Usuario</h1>
+<p class="subtitle">Sistema de Control Interno Contable · Documentación completa de todas las funciones · Octubre 2026</p>
+
+<div class="card tip">
+  <strong>Cómo usar este manual.</strong> Los capítulos siguen el orden real de trabajo del mes: primero se registra el cliente, luego la documentación, después los controles mensuales y al final el cierre contable. Cada capítulo indica qué rol puede usar cada función.
+</div>
+
+<h2 id="introduccion">1. Introducción y acceso</h2>
+<p>El sistema digitaliza el Manual de Control Interno y Procesos de la firma: reemplaza los cuadrantes de Excel por controles en línea, con historial de cambios y permisos por rol. Todo lo que se guarda queda en la base de datos y es visible para todo el equipo según su rol.</p>
+<h3>Entrar al sistema</h3>
+<ul>
+  <li>Accede con tu correo y contraseña en la pantalla <strong>Acceso</strong>. Si olvidaste tu contraseña, pide al administrador que la restablezca.</li>
+  <li>Al entrar ves el <strong>Panel</strong> con el resumen del mes: clientes activos, tareas pendientes, declaraciones del período y alertas.</li>
+  <li>El menú lateral se adapta a tu rol: un asistente operativo solo ve el Panel y el Calendario; un contador ve todo el bloque de Control.</li>
+</ul>
+<div class="card warn"><strong>Importante.</strong> Cada acción de escritura (crear, editar, eliminar) queda registrada en la <strong>Auditoría</strong> con usuario, fecha y detalle del cambio. No hay forma de borrar ese historial.</div>
+
+<h2 id="roles">2. Roles y permisos</h2>
+<table>
+  <tr><th>Rol</th><th>Qué puede hacer</th></tr>
+  <tr><td><strong>Administrador</strong></td><td>Acceso total: personal, configuración, catálogos, auditoría y todos los módulos. Único que puede eliminar clientes.</td></tr>
+  <tr><td><strong>Gerente de Operaciones</strong></td><td>Supervisa todo el Control, revisa expedientes y declaraciones, firma auditorías de cobros, ve la Auditoría y el Personal. No administra catálogos.</td></tr>
+  <tr><td><strong>Contador</strong></td><td>Todo el bloque de Control: maestro, informativas, DMC, cobros, visitas, contabilidad. No ve Auditoría ni Personal.</td></tr>
+  <tr><td><strong>Auxiliar Contable</strong></td><td>Igual que el contador: registra documentación, actualiza estados y checklists.</td></tr>
+  <tr><td><strong>Asistente Operativo</strong></td><td>Solo Panel y Calendario: consulta sus tareas asignadas de recogido, entrega y visitas.</td></tr>
+</table>
+<div class="card tip"><strong>Detalle técnico para el administrador.</strong> Los permisos se aplican en dos capas: el menú visible por rol y las políticas de seguridad de la base de datos. La tabla <code>audit_log</code> solo es legible por administrador y gerente.</div>
+
+<h2 id="pantallas">3. Mapa de pantallas</h2>
+<div class="flow">
+  <span>Panel</span><i>→</i><span>Clientes</span><i>→</i><span>Expedientes</span><i>→</i><span>Documentos</span><i>→</i><span>Control Maestro</span><i>→</i><span>Checklist</span>
+</div>
+<div class="flow">
+  <span>Informativas</span><i>·</i><span>Checklist DMC</span><i>·</i><span>Visitas Quimistán</span><i>·</i><span>Cobros y Caja</span><i>·</i><span>Contabilidad</span><i>·</i><span>Calendario</span>
+</div>
+<p>Sección <strong>Principal</strong>: datos maestros. Sección <strong>Control</strong>: operación mensual. Sección <strong>Administración</strong>: auditoría y configuración (solo admin/gerente).</p>
+
+<h2 id="clientes">4. Clientes</h2>
+<p>Pantalla base del sistema. Cada cliente tiene un código automático e irrepetible con formato <code>CLI-0001</code>.</p>
+<h3>Registrar un cliente nuevo</h3>
+<ul>
+  <li><span class="step-num">1</span>Botón <strong>Nuevo cliente</strong> y llena el formulario: nombre legal, RTN (14 dígitos), tipo (persona física o jurídica) y contacto.</li>
+  <li><span class="step-num">2</span>Marca <strong>Cliente de Quimistán</strong> si le aplica visita de recolección mensual (ver capítulo 10).</li>
+  <li><span class="step-num">3</span>Marca <strong>Declaración en cero</strong> si el cliente no presenta movimientos; el sistema lo distinguirá en el Control Maestro.</li>
+  <li><span class="step-num">4</span>Asigna el <strong>gestor</strong> (responsable principal) y el gestor secundario, y selecciona los servicios contratados.</li>
+  <li><span class="step-num">5</span>Guarda: el código se asigna solo y el cliente queda activo.</li>
+</ul>
+<h3>Datos que se manejan por cliente</h3>
+<ul>
+  <li><strong>Identificación:</strong> código, nombre legal y comercial, RTN, tipo, estado (activo/inactivo).</li>
+  <li><strong>Contacto:</strong> teléfono, WhatsApp, correo, persona de contacto, dirección, departamento y municipio.</li>
+  <li><strong>Asignación:</strong> gestor, gestor secundario, servicios contratados, notas.</li>
+  <li><strong>Ficha completa:</strong> al abrir un cliente ves sus expedientes, tareas, cobros y documentos en una sola vista.</li>
+</ul>
+<div class="card warn"><strong>Solo el administrador puede eliminar clientes</strong> (y queda registrado en auditoría). Los demás roles pueden editar y dar de baja cambiando el estado a inactivo.</div>
+
+<h2 id="expedientes">5. Expedientes y documentos</h2>
+<p>Cada mes se abre un <strong>expediente</strong> por cliente con código <code>CLI-0001-2026-10</code> (cliente-año-mes). Dentro van los documentos recibidos y el checklist del mes.</p>
+<h3>Flujo del expediente</h3>
+<ul>
+  <li><span class="step-num">1</span><strong>Crear expediente:</strong> elige cliente y período; el código se genera automáticamente.</li>
+  <li><span class="step-num">2</span><strong>Recibir documentos:</strong> registra cada documento con su tipo (del catálogo), nombre, quién lo recibió y si es físico o digital. Los digitales se pueden subir como archivo y quedan guardados en el sistema.</li>
+  <li><span class="step-num">3</span><strong>Checklist del expediente:</strong> agrega los pasos del proceso con responsable y fecha límite (solicitud, conformidad, revisión, declaración, pago, archivo).</li>
+  <li><span class="step-num">4</span><strong>Estados:</strong> el expediente pasa de borrador a en proceso, completado y archivado conforme avanza el mes.</li>
+</ul>
+<div class="card tip"><strong>Recepción según el flujograma.</strong> Revisa correspondencia → verifica que cumple requisitos → si cumple, continúa al clasificador de gastos; si no cumple, se registra como rechazado con nota de lo que falta y se notifica al cliente.</div>
+
+<h2 id="checklist">6. Checklist</h2>
+<p>Vista consolidada de todos los pasos de todos los expedientes. Sirve como tablero del día: puedes filtrar por responsable, estado o cliente, y marcar avances sin abrir cada expediente.</p>
+<ul>
+  <li><strong>Estados de tarea:</strong> <span class="badge b-red">Pendiente</span> <span class="badge b-amber">En proceso</span> <span class="badge b-green">Completada</span>. Al completar se guarda la fecha automáticamente.</li>
+  <li>Usa el filtro de responsable para saber qué le toca a cada miembro del equipo hoy.</li>
+</ul>
+
+<h2 id="control-maestro">7. Control Maestro</h2>
+<p>El cuadro principal del mes (equivalente al control maestro de Excel). Una fila por cliente y período, con toda la cadena de cumplimiento.</p>
+<h3>Columnas y cómo se usan</h3>
+<table>
+  <tr><th>Columna</th><th>Valores / uso</th></tr>
+  <tr><td>Responsable</td><td>Quién lleva el cliente este mes.</td></tr>
+  <tr><td>Estado de información</td><td><span class="badge b-red">Rojo: no recibida</span> <span class="badge b-amber">Amarillo: incompleta</span> <span class="badge b-green">Verde: completa</span>.</td></tr>
+  <tr><td>Conformidad</td><td>Fecha en que el cliente firmó/remitió la conformidad.</td></tr>
+  <tr><td>Revisión</td><td>Quién revisó y cuándo (quedan guardados ambos).</td></tr>
+  <tr><td>Tipo de declaración</td><td>Normal o en cero (coincide con la marca del cliente).</td></tr>
+  <tr><td>Boletín</td><td>Boletín de pago emitido.</td></tr>
+  <tr><td>Pago</td><td>Pago del cliente registrado.</td></tr>
+  <tr><td>Archivado</td><td>Marcar cuando el expediente esté guardado en su folder.</td></tr>
+  <tr><td>Observaciones</td><td>Notas libres del mes (errores, pendientes del cliente, etc.).</td></tr>
+</table>
+<div class="card tip"><strong>Regla del día 6.</strong> Si al 6 del mes la información sigue sin recibirse, se notifica al cliente y se documenta el deslinde (ver capítulo 10 para Quimistán; para el resto, usa las observaciones y el estado rojo).</div>
+
+<h2 id="informativas">8. Informativas</h2>
+<p>Control exclusivo de las obligaciones informativas (responsable histórica: María). Vencen el <strong>día 10</strong>.</p>
+<ul>
+  <li><span class="step-num">1</span>Elige cliente y obligación: salarios, retención 12.5%, retención 1% o dividendos.</li>
+  <li><span class="step-num">2</span>Asigna responsable y guarda: la fecha límite se fija automáticamente al día 10 del período.</li>
+  <li><span class="step-num">3</span>Actualiza el estado: <span class="badge b-red">Pendiente</span> <span class="badge b-amber">En proceso</span> <span class="badge b-green">Listo</span>.</li>
+  <li>Los contadores arriba de la tabla te dicen cuántas van pendientes y listas.</li>
+</ul>
+
+<h2 id="dmc">9. Checklist DMC</h2>
+<p>Declaración Mensual de Compras de los 4 clientes asignados. Vence el <strong>día 8</strong> y exige <strong>doble validación</strong>.</p>
+<h3>Los 7 puntos del checklist</h3>
+<ul>
+  <li><strong>Validación 1 — Formato:</strong> RTN correcto, CAI correcto, fecha válida, factura vigente, monto correcto.</li>
+  <li><strong>Validación 2 — SAR:</strong> validación exitosa en el sistema del SAR.</li>
+  <li><strong>Cierre:</strong> acuse archivado.</li>
+</ul>
+<h3>Estados automáticos</h3>
+<ul>
+  <li>Al marcar los 7 puntos → <span class="badge b-green">Aprobada</span>.</li>
+  <li>Si algo falla → <span class="badge b-red">Con error</span>; al corregir → <span class="badge b-amber">Corregido</span>.</li>
+  <li>Encabezado de cada tarjeta muestra si la Validación 1 y la 2 están OK, para saber de un vistazo qué falta.</li>
+  <li>Usa <strong>Observaciones</strong> para anotar qué se corrigió y por qué.</li>
+</ul>
+<div class="card warn"><strong>Solo se agregan los clientes con DMC.</strong> La lista desplegable oculta a los que ya están en el checklist del período.</div>
+
+<h2 id="quimistan">10. Visitas Quimistán</h2>
+<p>Control de recolección en campo para los clientes de Quimistán, con su notificación previa y deslinde.</p>
+<ul>
+  <li><span class="step-num">1</span><strong>Programar (día 5):</strong> la visita se agenda por defecto para el día 5 del mes.</li>
+  <li><span class="step-num">2</span><strong>Notificar (días 3-4):</strong> registra la fecha del WhatsApp de aviso; la visita pasa a <span class="badge b-amber">Notificada</span>.</li>
+  <li><span class="step-num">3</span><strong>Visitar:</strong> anota hora, responsable y documentos recibidos; pasa a <span class="badge b-sky">Realizada</span>.</li>
+  <li><span class="step-num">4</span><strong>Firma del cliente:</strong> escribe el nombre de quien firma la entrega; queda <span class="badge b-green">Completa</span> con fecha y hora de la firma.</li>
+  <li><span class="step-num">5</span><strong>Deslinde (día 6):</strong> si no se recibió información, marca la casilla de deslinde; queda con fecha del día 6 como evidencia formal.</li>
+</ul>
+<div class="card danger"><strong>El deslinde protege a la firma.</strong> Si un cliente no entrega información y no se registra el deslinde, los recargos por declaración tardía son responsabilidad de la firma. El sistema te muestra un contador de visitas "sin deslinde" hasta que todas estén cubiertas.</div>
+
+<h2 id="cobros">11. Cobros y Cuadre de Caja</h2>
+<p>El cuadrante de cobros de Lizeth con la auditoría de Enrique. Cada cobro es una fila por cliente y mes.</p>
+<h3>Registro del cobro</h3>
+<ul>
+  <li><strong>Agregar:</strong> elige cliente y monto de honorarios.</li>
+  <li><strong>Número de recibo:</strong> "recibo por honorarios" al emitirse.</li>
+  <li><strong>Recibo emitido:</strong> sí cuando el recibo está facturado.</li>
+  <li><strong>Depósito confirmado:</strong> sí cuando entra el dinero; anota el monto depositado real.</li>
+  <li><strong>Estado:</strong> fluye solo: Pendiente → Recibo emitido → Cobrado → Conciliado.</li>
+</ul>
+<h3>Cuadre automático</h3>
+<p>Las tres tarjetas superiores comparan siempre <strong>recibos emitidos</strong> contra <strong>depósitos recibidos</strong>: si coinciden dice "Cuadrado"; si no, muestra el monto del descuadre en rojo.</p>
+<ul>
+  <li><strong>Auditoría (Enrique):</strong> botón "Auditar" firma el cobro con tu usuario y fecha. Solo aplica cuando el depósito está confirmado; queda como evidencia del cruce recibo = depósito.</li>
+  <li><strong>Contabilizado (María):</strong> márcalo cuando el cobro esté registrado en bancos en contabilidad.</li>
+</ul>
+
+<h2 id="contabilidad">12. Contabilidad Post-Día 10</h2>
+<p>El checklist contable de María para cerrar el mes. Se carga con un clic por cliente.</p>
+<h3>Checklist completo (9 tareas)</h3>
+<table>
+  <tr><th>Bloque</th><th>Tareas</th></tr>
+  <tr><td>Posteo Excel</td><td>Traslado de gastos del Excel al sistema.</td></tr>
+  <tr><td>Conciliación</td><td>Cuentas BAC, FICOHSA y Atlántida.</td></tr>
+  <tr><td>Caja chica</td><td>Cuadre de fondo fijo.</td></tr>
+  <tr><td>Libros legales</td><td>Libro de compras, de ventas, diario y mayor.</td></tr>
+  <tr><td>QuickBooks</td><td>Registro contable en QuickBooks.</td></tr>
+</table>
+<ul>
+  <li><strong>Estados:</strong> <span class="badge b-red">Pendiente</span> <span class="badge b-amber">En proceso</span> <span class="badge b-sky">Completada</span> <span class="badge b-green">Revisada</span>, con fecha de cierre automática.</li>
+  <li><strong>Barra de progreso:</strong> porcentaje del período con contador de tareas hechas.</li>
+  <li>Cada bloque muestra su propio avance (ej. 2/3 conciliaciones).</li>
+</ul>
+
+<h2 id="calendario">13. Calendario</h2>
+<p>Muestra las fechas internas de cumplimiento configuradas en el sistema:</p>
+<table>
+  <tr><th>Compromiso</th><th>Día del mes</th></tr>
+  <tr><td>IVA mensual, retenciones de renta, anticipos y DMC</td><td>Día 8</td></tr>
+  <tr><td>Renta municipal e informativas (salarios, 12.5%, 1%, dividendos)</td><td>Día 10</td></tr>
+  <tr><td>Archivo mensual (re-archivo de folders en orden alfabético)</td><td>Día 11</td></tr>
+  <tr><td>Notificación WhatsApp Quimistán</td><td>Días 3-4</td></tr>
+  <tr><td>Visita Quimistán / deslinde / notificación cliente</td><td>Día 5 / día 6</td></tr>
+</table>
+<p>Las tareas del calendario nacen de las obligaciones registradas por cliente; cada una tiene responsable y estado.</p>
+
+<h2 id="personal">14. Personal, Auditoría y Configuración</h2>
+<h3>Personal (admin y gerente)</h3>
+<ul>
+  <li>Registra miembros del equipo con su rol y correo; actívalos o desactívalos sin borrar su historial.</li>
+</ul>
+<h3>Auditoría (admin y gerente)</h3>
+<ul>
+  <li>Historial completo de cambios: quién, qué tabla, qué acción, qué campos cambiaron y cuándo. Filtra por usuario o tabla. No se puede editar ni borrar.</li>
+</ul>
+<h3>Configuración (solo admin)</h3>
+<ul>
+  <li>Catálogos del sistema: <strong>tipos de documento</strong>, <strong>servicios</strong>, <strong>obligaciones fiscales</strong> (con su día de vencimiento) y <strong>obligaciones informativas</strong>. Agrega o desactiva elementos según cambien los procesos.</li>
+</ul>
+
+<h2 id="cronograma">15. Cronograma resumen del mes</h2>
+<table>
+  <tr><th>Días</th><th>Qué se hace</th><th>Dónde</th></tr>
+  <tr><td>1-4</td><td>Solicitud de documentación, recojo, notificación WhatsApp Quimistán</td><td>Expedientes · Visitas Quimistán</td></tr>
+  <tr><td>5</td><td>Visita de recolección Quimistán con firma del cliente</td><td>Visitas Quimistán</td></tr>
+  <tr><td>6</td><td>Deslinde a quienes no entregaron; conformidad y revisión</td><td>Visitas · Control Maestro</td></tr>
+  <tr><td>8</td><td>Declaraciones: IVA, retenciones, anticipos y DMC (doble validación)</td><td>Checklist · Checklist DMC</td></tr>
+  <tr><td>10</td><td>Renta municipal e informativas de María</td><td>Informativas</td></tr>
+  <tr><td>Post 10</td><td>Posteo, conciliaciones, caja chica, libros y QuickBooks</td><td>Contabilidad</td></tr>
+  <tr><td>Todo el mes</td><td>Cobros, cuadre de caja y auditoría de Enrique</td><td>Cobros y Caja</td></tr>
+  <tr><td>11+</td><td>Archivo de folders en orden alfabético</td><td>Control Maestro (archivado)</td></tr>
+</table>
+
+<h2 id="faq">16. Preguntas frecuentes</h2>
+<div class="card"><strong>¿Puedo corregir algo que ya guardé?</strong><br>Sí, todo se puede editar (excepto la auditoría). El cambio anterior queda en el historial.</div>
+<div class="card"><strong>¿Por qué no veo un módulo en el menú?</strong><br>El menú depende de tu rol. Si necesitas acceso, pídelo al administrador.</div>
+<div class="card"><strong>¿El código del cliente o del expediente se puede cambiar?</strong><br>No, son automáticos e irrepetibles para mantener la trazabilidad.</div>
+<div class="card"><strong>¿Qué pasa si marco un punto del DMC por error?</strong><br>Desmárcalo: el estado vuelve a calcularse solo (quedará "Corregido" si venía de un error).</div>
+<div class="card"><strong>¿Quién puede borrar registros?</strong><br>El personal contable puede eliminar tareas y checklists; solo el administrador elimina clientes. Todo queda en auditoría.</div>
+<div class="card"><strong>¿Se puede usar el teléfono?</strong><br>Sí, el sistema es responsivo: el menú se convierte en drawer y las tablas se desplazan lateralmente.</div>
+
+<div class="card tip" style="margin-top:40px">
+  <strong>Archivos de respaldo.</strong> Este proyecto incluye <code>database-export.sql</code> y <code>database-export.json</code>: la exportación completa de la base de datos (estructura y datos) con fecha 2026-10-18.
+</div>
+
+</main>
+</div>
+<script>
+  const links = document.querySelectorAll('nav a');
+  const secs = [...links].map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+  window.addEventListener('scroll', () => {
+    let cur = secs[0];
+    for (const s of secs) { if (s.getBoundingClientRect().top < 120) cur = s; }
+    links.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + cur.id));
+  });
+</script>
+</body>
+</html>

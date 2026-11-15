@@ -1,0 +1,64 @@
+services:
+  contagestion-db:
+    image: postgres:16-alpine
+    container_name: contagestion-db
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: contagestion_db
+    ports:
+      - "127.0.0.1:5433:5432"
+    volumes:
+      - ../postgres-migration/database/init-contagestion.sql:/docker-entrypoint-initdb.d/init-contagestion.sql:ro
+      - contagestion_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d contagestion_db"]
+      interval: 4s
+      timeout: 5s
+      retries: 10
+    networks:
+      - contagestion_net
+
+  contagestion-api:
+    build:
+      context: ../postgres-migration/api-contagestion
+      dockerfile: Dockerfile
+    container_name: contagestion-api
+    restart: always
+    ports:
+      - "3002:3002"
+    environment:
+      PORT: 3002
+      DATABASE_URL: postgres://postgres:postgres@contagestion-db:5432/contagestion_db
+      JWT_SECRET: super-secret-jwt-token-key-2026-sirh-contagestion
+      STORAGE_PATH: /app/uploads
+    depends_on:
+      contagestion-db:
+        condition: service_healthy
+    volumes:
+      - contagestion_uploads:/app/uploads
+    networks:
+      - contagestion_net
+
+  contagestion-web:
+    image: nginx:alpine
+    container_name: contagestion-web
+    restart: always
+    ports:
+      - "5173:80"
+    volumes:
+      - ./dist:/usr/share/nginx/html:ro
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - contagestion-api
+    networks:
+      - contagestion_net
+
+networks:
+  contagestion_net:
+    driver: bridge
+
+volumes:
+  contagestion_pgdata:
+  contagestion_uploads:

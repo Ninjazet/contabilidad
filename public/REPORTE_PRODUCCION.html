@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="initial-scale=1, width=device-width" />
+<title>ContaGestión — Reporte Técnico de Preparación para Producción</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primario: #064e3b;
+    --primario-oscuro: #022c22;
+    --acento: #059669;
+    --acento-claro: #34d399;
+    --fondo: #f8fafc;
+    --tarjeta: #ffffff;
+    --texto: #0f172a;
+    --texto-suave: #475569;
+    --borde: #e2e8f0;
+    --borde-acento: #a7f3d0;
+    --exito: #16a34a;
+    --alerta: #d97706;
+    --peligro: #dc2626;
+    --info: #0284c7;
+    --radio: 14px;
+    --radio-sm: 8px;
+    --sombra-md: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -2px rgba(0,0,0,0.05);
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: var(--fondo);
+    color: var(--texto);
+    margin: 0;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, h4, h5 {
+    font-family: 'Outfit', sans-serif;
+    letter-spacing: -0.02em;
+    color: var(--primario-oscuro);
+  }
+
+  /* BARRA SUPERIOR */
+  .top-nav {
+    background: #022c22;
+    color: #e2e8f0;
+    padding: 10px 24px;
+    font-size: 0.88rem;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    backdrop-filter: blur(8px);
+  }
+  .top-nav-inner {
+    max-width: 1140px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .nav-pills { display: flex; gap: 8px; flex-wrap: wrap; }
+  .nav-pill {
+    padding: 5px 12px;
+    border-radius: 9999px;
+    text-decoration: none;
+    font-size: 0.82rem;
+    font-weight: 600;
+    transition: all 0.2s ease;
+  }
+  .nav-pill-active { background: var(--acento); color: #fff; }
+  .nav-pill-idle { background: rgba(255,255,255,0.08); color: #cbd5e1; }
+  .nav-pill-idle:hover { background: rgba(255,255,255,0.18); color: #fff; }
+  .env-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.8rem;
+    color: var(--acento-claro);
+    font-weight: 500;
+  }
+  .env-dot { width: 8px; height: 8px; border-radius: 50%; background: #10b981; }
+
+  /* HEADER */
+  header {
+    background: radial-gradient(circle at 80% 20%, #065f46 0%, #064e3b 45%, #022c22 100%);
+    color: #fff;
+    padding: 56px 24px 48px;
+    text-align: center;
+    border-bottom: 4px solid var(--acento);
+  }
+  header h1 {
+    margin: 0 0 12px;
+    font-size: 2.3rem;
+    font-weight: 800;
+    color: #fff;
+  }
+  header h1 span { color: var(--acento-claro); }
+  header p {
+    margin: 0 auto;
+    max-width: 820px;
+    color: #a7f3d0;
+    font-size: 1.1rem;
+    line-height: 1.55;
+  }
+  .header-meta {
+    margin-top: 24px;
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+  .meta-badge {
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 8px;
+    padding: 6px 14px;
+    font-size: 0.85rem;
+    color: #f1f5f9;
+  }
+
+  main {
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 40px 24px 90px;
+  }
+
+  section {
+    background: var(--tarjeta);
+    border: 1px solid var(--borde);
+    border-radius: var(--radio);
+    padding: 36px 40px;
+    margin-bottom: 36px;
+    box-shadow: var(--sombra-md);
+  }
+  @media (max-width: 640px) {
+    section { padding: 24px 20px; }
+  }
+
+  h2 {
+    font-size: 1.45rem;
+    font-weight: 700;
+    margin-top: 0;
+    margin-bottom: 20px;
+    border-bottom: 2px solid var(--acento);
+    padding-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  h3 {
+    font-size: 1.18rem;
+    font-weight: 600;
+    margin: 26px 0 12px;
+    color: var(--primario);
+  }
+  p { margin: 0 0 16px; }
+
+  /* VEREDICTO BOX */
+  .veredicto-box {
+    border-radius: var(--radio);
+    padding: 24px 28px;
+    margin: 24px 0;
+    border-left: 6px solid var(--alerta);
+    background: #fffbeb;
+  }
+  .veredicto-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+  .veredicto-title {
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: #92400e;
+    font-family: 'Outfit', sans-serif;
+  }
+  .veredicto-badge {
+    background: #fde68a;
+    color: #854d0e;
+    padding: 4px 12px;
+    border-radius: 9999px;
+    font-weight: 700;
+    font-size: 0.82rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .veredicto-desc {
+    color: #78350f;
+    font-size: 0.98rem;
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  /* TABLAS */
+  .table-responsive { width: 100%; overflow-x: auto; margin: 20px 0; border: 1px solid var(--borde); border-radius: var(--radio-sm); }
+  table { width: 100%; border-collapse: collapse; font-size: 0.92rem; text-align: left; }
+  th, td { padding: 12px 16px; border-bottom: 1px solid var(--borde); vertical-align: middle; }
+  th { background: #f8fafc; color: #334155; font-weight: 600; font-family: 'Outfit', sans-serif; }
+  tr:last-child td { border-bottom: none; }
+  tr:hover { background: #f1f5f9; }
+
+  /* BADGES */
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 3px 10px;
+    border-radius: 9999px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+  .badge-listo { background: #dcfce7; color: #15803d; }
+  .badge-critico { background: #fee2e2; color: #991b1b; }
+  .badge-alto { background: #fef3c7; color: #92400e; }
+  .badge-medio { background: #e0f2fe; color: #075985; }
+
+  /* ALERTAS */
+  .alerta {
+    border-radius: var(--radio-sm);
+    padding: 16px 20px;
+    margin: 20px 0;
+    font-size: 0.95rem;
+  }
+  .alerta-peligro { background: #fef2f2; border-left: 4px solid var(--peligro); color: #991b1b; }
+  .alerta-info { background: #f0fdf4; border-left: 4px solid var(--acento); color: #064e3b; }
+  .alerta-amarillo { background: #fffbeb; border-left: 4px solid var(--alerta); color: #92400e; }
+
+  /* CAJAS DE RECOMENDACIÓN */
+  .item-card {
+    background: #f8fafc;
+    border: 1px solid var(--borde);
+    border-radius: var(--radio-sm);
+    padding: 22px 26px;
+    margin-bottom: 20px;
+  }
+  .item-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .item-card-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--primario);
+    margin: 0;
+  }
+  .item-card-body {
+    font-size: 0.92rem;
+    color: var(--texto);
+  }
+  .item-card-body p { margin-bottom: 8px; }
+
+  /* BLOQUES DE CÓDIGO */
+  code {
+    background: #f1f5f9;
+    color: #0f172a;
+    border: 1px solid #e2e8f0;
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'JetBrains Mono', Consolas, monospace;
+    font-size: 0.88em;
+  }
+  pre {
+    background: #0f172a;
+    color: #f8fafc;
+    border-radius: var(--radio-sm);
+    padding: 16px 20px;
+    overflow-x: auto;
+    font-family: 'JetBrains Mono', Consolas, monospace;
+    font-size: 0.88rem;
+    line-height: 1.5;
+    border: 1px solid #334155;
+    margin: 12px 0;
+  }
+
+  /* CHECKLIST */
+  .checklist-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid #f1f5f9;
+    font-size: 0.93rem;
+  }
+  .checklist-item:last-child { border-bottom: none; }
+  .check-icon {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .check-ok { background: #dcfce7; color: #15803d; }
+  .check-warn { background: #fef3c7; color: #92400e; }
+  .check-crit { background: #fee2e2; color: #991b1b; }
+
+  footer {
+    text-align: center;
+    color: var(--texto-suave);
+    font-size: 0.9rem;
+    padding: 30px 20px 50px;
+    border-top: 1px solid var(--borde);
+  }
+</style>
+</head>
+<body>
+
+<!-- NAVEGACIÓN SUPERIOR -->
+<nav class="top-nav">
+  <div class="top-nav-inner">
+    <div class="nav-pills">
+      <span style="font-weight:700; color:#a7f3d0; margin-right:6px; align-self:center;">Documentación:</span>
+      <a href="TUTORIAL_POR_ROLES.html" class="nav-pill nav-pill-idle">Tutorial por Roles y Accesos</a>
+      <a href="TUTORIAL_ACCESO_TOTAL.html" class="nav-pill nav-pill-idle">Tutorial Maestro (Acceso Total)</a>
+      <a href="DOCUMENTACION.html" class="nav-pill nav-pill-idle">Manual de Arquitectura y SAR</a>
+      <a href="REPORTE_PRODUCCION.html" class="nav-pill nav-pill-active">Reporte para Producción</a>
+    </div>
+    <div class="env-tag">
+      <span class="env-dot"></span> Servidor: <strong>http://localhost:5173</strong>
+    </div>
+  </div>
+</nav>
+
+<header>
+  <h1>ContaGestión — <span>Reporte de Preparación para Producción</span></h1>
+  <p>Auditoría técnica integral de seguridad, infraestructura, base de datos y funcionalidad empresarial para determinar la viabilidad del despliegue en producción.</p>
+  <div class="header-meta">
+    <div class="meta-badge">Auditoría Técnica Exhaustiva</div>
+    <div class="meta-badge">PostgreSQL 16 + Node.js API</div>
+    <div class="meta-badge">Arquitectura Docker Aislada</div>
+  </div>
+</header>
+
+<main>
+
+<!-- ================= SECCIÓN 1: RESUMEN EJECUTIVO ================= -->
+<section id="resumen">
+  <h2>1. Resumen Ejecutivo y Veredicto</h2>
+
+  <div class="veredicto-box">
+    <div class="veredicto-header">
+      <div class="veredicto-title">Veredicto: Listo al 90% para Pruebas Empresariales / Requiere Hardening para Internet</div>
+      <div class="veredicto-badge">Madurez: 90%</div>
+    </div>
+    <p class="veredicto-desc">
+      El sistema cuenta con el 100% de su arquitectura de frontend, rutas, componentes, base de datos relacional y lógica operativa conectada a PostgreSQL real. Se puede usar de inmediato para <strong>pruebas piloto, capacitación de colaboradores y carga de datos iniciales en la red local</strong>. Sin embargo, para exponer el sistema a Internet de forma pública y definitiva, deben resolverse <strong>5 puntos críticos de seguridad y respaldos</strong> descritos en este informe.
+    </p>
+  </div>
+
+  <div class="table-responsive">
+    <table>
+      <thead>
+        <tr>
+          <th>Dimensión Evaluada</th>
+          <th>Estado Actual</th>
+          <th>Nivel de Preparación</th>
+          <th>Observaciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Lógica de Negocio y Módulos</strong></td>
+          <td><span class="badge badge-listo">Completado</span></td>
+          <td>100%</td>
+          <td>Los 15 módulos están conectados a PostgreSQL real. No hay datos falsos ni mocks.</td>
+        </tr>
+        <tr>
+          <td><strong>Frontend y Experiencia de Usuario</strong></td>
+          <td><span class="badge badge-listo">Completado</span></td>
+          <td>100%</td>
+          <td>React 19 + TypeScript + Vite 7 sin errores de tipado; ayuda contextual F1 integrada.</td>
+        </tr>
+        <tr>
+          <td><strong>Base de Datos Relacional</strong></td>
+          <td><span class="badge badge-listo">Completado</span></td>
+          <td>95%</td>
+          <td>19 tablas, tipos enum y restricciones. Requiere forzar RLS para usuarios de aplicación.</td>
+        </tr>
+        <tr>
+          <td><strong>Seguridad y Credenciales</strong></td>
+          <td><span class="badge badge-critico">Atención Requerida</span></td>
+          <td>65%</td>
+          <td>Secretos por defecto en Docker, CORS abierto a wildcard (*) y falta de rate limiting.</td>
+        </tr>
+        <tr>
+          <td><strong>Infraestructura y Red</strong></td>
+          <td><span class="badge badge-alto">Atención Requerida</span></td>
+          <td>70%</td>
+          <td>Puerto HTTP plano; falta proxy inverso con certificados SSL/TLS y script de backups.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ================= SECCIÓN 2: LO QUE YA ESTÁ LISTO ================= -->
+<section id="listo">
+  <h2>2. Lo que ya está 100% Terminado y Operativo</h2>
+  <p>
+    Los siguientes componentes han superado las pruebas de compilación, integración en contenedores Docker y navegación en navegador real:
+  </p>
+
+  <div class="checklist-item">
+    <div class="check-icon check-ok">✓</div>
+    <div>
+      <strong>Frontend Compilado sin Errores:</strong> Compilación exitosa con <code>tsc -b && vite build</code>; bundle minificado servido a través de Nginx en contenedor Alpine optimizado.
+    </div>
+  </div>
+
+  <div class="checklist-item">
+    <div class="check-icon check-ok">✓</div>
+    <div>
+      <strong>Motor de Base de Datos PostgreSQL 16:</strong> Contenedor dedicado <code>contagestion-db</code> mapeado al puerto <code>5433</code>, conviviendo pacíficamente con otros contenedores Docker sin colisión de puertos.
+    </div>
+  </div>
+
+  <div class="checklist-item">
+    <div class="check-icon check-ok">✓</div>
+    <div>
+      <strong>Conexión Real de los 15 Módulos:</strong> Panel, Clientes, Expedientes, Bóveda de Documentos, Control Maestro, Checklist, Informativas, Checklist DMC, Cobros, Visitas Quimistán, Contabilidad, Calendario, Personal, Auditoría y Configuración.
+    </div>
+  </div>
+
+  <div class="checklist-item">
+    <div class="check-icon check-ok">✓</div>
+    <div>
+      <strong>Autenticación con Hash Bcrypt:</strong> Verificación criptográfica de credenciales en PostgreSQL y generación de tokens de sesión JWT de 7 días de vigencia.
+    </div>
+  </div>
+
+  <div class="checklist-item">
+    <div class="check-icon check-ok">✓</div>
+    <div>
+      <strong>Sistema de Ayuda Contextual en Pantalla (F1):</strong> Botón circular '?' en cada encabezado y atajo F1 estilo Aspel SAE con explicación de botones, pasos y normativa SAR.
+    </div>
+  </div>
+</section>
+
+<!-- ================= SECCIÓN 3: NIVEL 1 SEGURIDAD ================= -->
+<section id="seguridad">
+  <h2>3. Nivel 1: Seguridad y Hardening (Prioridad Crítica)</h2>
+  <p>
+    Estos ajustes deben implementarse antes de abrir el servidor a conexiones externas de Internet:
+  </p>
+
+  <!-- ITEM 1 -->
+  <div class="item-card">
+    <div class="item-card-header">
+      <div class="item-card-title">1. Secretos y Contraseñas por Defecto en Texto Plano</div>
+      <span class="badge badge-critico">Crítico</span>
+    </div>
+    <div class="item-card-body">
+      <p><strong>Diagnóstico:</strong> El archivo <code>docker-compose.yml</code> incluye valores de desarrollo hardcodeados (<code>JWT_SECRET: super-secret-jwt-token-key-2026-sirh-contagestion</code> y <code>POSTGRES_PASSWORD: postgres</code>).</p>
+      <p><strong>Solución para Producción:</strong> Mover todos los secretos a un archivo <code>.env.production</code> no versionado y generar una clave JWT aleatoria de 256 bits:</p>
+      <pre># Generar secreto criptográfico seguro en la terminal:
+openssl rand -hex 32
+
+# En .env.production:
+JWT_SECRET=c8f1e29a4d8b7c3e5f1029384756abcdef1234567890abcdef1234567890abcd
+POSTGRES_PASSWORD=ContraseñaCompletaGenerada2026!#
+DATABASE_URL=postgres://contagestion_app:ContraseñaCompletaGenerada2026!#@contagestion-db:5432/contagestion_db</pre>
+    </div>
+  </div>
+
+  <!-- ITEM 2 -->
+  <div class="item-card">
+    <div class="item-card-header">
+      <div class="item-card-title">2. Restricción de Origen en CORS (Cross-Origin Resource Sharing)</div>
+      <span class="badge badge-critico">Crítico</span>
+    </div>
+    <div class="item-card-body">
+      <p><strong>Diagnóstico:</strong> En <code>postgres-migration/api-contagestion/src/index.js</code> se utiliza <code>origin: '*'</code>, permitiendo solicitudes desde cualquier dominio web.</p>
+      <p><strong>Solución para Producción:</strong> Limitar el acceso exclusivamente al dominio o subdominio institucional de la firma contable:</p>
+      <pre>app.use(
+  cors({
+    origin: process.env.ALLOWED_ORIGIN || 'https://contagestion.tudominio.hn',
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+    exposedHeaders: ['Content-Range', 'Range-Unit', 'Content-Length', 'ETag'],
+    credentials: true,
+  })
+);</pre>
+    </div>
+  </div>
+
+  <!-- ITEM 3 -->
+  <div class="item-card">
+    <div class="item-card-header">
+      <div class="item-card-title">3. Conexión de Base de Datos como Superusuario (Bypass de RLS)</div>
+      <span class="badge badge-critico">Crítico</span>
+    </div>
+    <div class="item-card-body">
+      <p><strong>Diagnóstico:</strong> La API Node.js se conecta con el usuario <code>postgres</code>. En PostgreSQL, el superusuario y dueño de tablas omite por defecto las políticas de Row Level Security (RLS).</p>
+      <p><strong>Solución para Producción:</strong> Forzar la aplicación estricta de RLS en todas las tablas sensibles:</p>
+      <pre>ALTER TABLE clients FORCE ROW LEVEL SECURITY;
+ALTER TABLE files FORCE ROW LEVEL SECURITY;
+ALTER TABLE deadline_tasks FORCE ROW LEVEL SECURITY;
+ALTER TABLE collections FORCE ROW LEVEL SECURITY;</pre>
+    </div>
+  </div>
+
+  <!-- ITEM 4 -->
+  <div class="item-card">
+    <div class="item-card-header">
+      <div class="item-card-title">4. Protección contra Ataques de Fuerza Bruta (Rate Limiting)</div>
+      <span class="badge badge-critico">Crítico</span>
+    </div>
+    <div class="item-card-body">
+      <p><strong>Diagnóstico:</strong> El endpoint de inicio de sesión no limita la cantidad de intentos fallidos permitidos por minuto.</p>
+      <p><strong>Solución para Producción:</strong> Integrar <code>express-rate-limit</code> en la ruta <code>/auth/v1/token</code>:</p>
+      <pre>import rateLimit from 'express-rate-limit';
+
+const loginLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutos
+  max: 5, // Máximo 5 intentos fallidos
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { error: 'Demasiados intentos fallidos. Bloqueado temporalmente por 15 minutos.' }
+});
+
+app.use('/auth/v1/token', loginLimiter);
+app.use('/auth/login', loginLimiter);</pre>
+    </div>
+  </div>
+
+  <!-- ITEM 5 -->
+  <div class="item-card">
+    <div class="item-card-header">
+      <div class="item-card-title">5. Validación de Tipos de Archivo en la Bóveda de Documentos</div>
+      <span class="badge badge-critico">Crítico</span>
+    </div>
+    <div class="item-card-body">
+      <p><strong>Diagnóstico:</strong> En <code>storage.js</code>, la carga de archivos no valida la extensión ni el tipo MIME real mediante lista blanca.</p>
+      <p><strong>Solución para Producción:</strong> Configurar un filtro estricto en Multer para admitir únicamente formatos probatorios fiscales válidos:</p>
+      <pre>const fileFilter = (req, file, cb) => {
+  const allowedMimes = ['application/pdf', 'image/jpeg', 'image/png', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'];
+  if (allowedMimes.includes(file.mimetype)) {
+    cb(null, true);
+  } else {
+    cb(new Error('Tipo de archivo no permitido. Solo se aceptan PDFs, imágenes y hojas Excel.'), false);
+  }
+};</pre>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SECCIÓN 4: NIVEL 2 INFRAESTRUCTURA ================= -->
+<section id="infraestructura">
+  <h2>4. Nivel 2: Infraestructura y Resiliencia (DevOps)</h2>
+
+  <!-- ITEM 1 -->
+  <div class="item-card">
+    <div class="item-card-header">
+      <div class="item-card-title">1. Conexión Cifrada Obligatoria (HTTPS / Certificados SSL)</div>
+      <span class="badge badge-alto">Prioridad Alta</span>
+    </div>
+    <div class="item-card-body">
+      <p>El sistema se ejecuta actualmente en HTTP plano. En producción es imperativo añadir un proxy inverso (Nginx, Traefik o Cloudflare) con certificados gratuitos emitidos por Let's Encrypt para cifrar todo el tráfico tributario y las contraseñas en tránsito.</p>
+    </div>
+  </div>
+
+  <!-- ITEM 2 -->
+  <div class="item-card">
+    <div class="item-card-header">
+      <div class="item-card-title">2. Estrategia y Script de Respaldo Automatizado (Backups de BD)</div>
+      <span class="badge badge-alto">Prioridad Alta</span>
+    </div>
+    <div class="item-card-body">
+      <p>Los datos tributarios residen en el volumen Docker <code>contagestion_pgdata</code>. Debe configurarse una tarea programada diaria con <code>cron</code> que realice un dump comprimido y lo transmita a un almacenamiento externo (AWS S3, Google Drive o Backblaze B2):</p>
+      <pre># Tarea Cron en el servidor (todos los días a las 02:00 AM):
+0 2 * * * docker exec contagestion-db pg_dump -U postgres -d contagestion_db -Fc | gzip > /backups/contagestion_$(date +\%F).dump.gz</pre>
+    </div>
+  </div>
+
+  <!-- ITEM 3 -->
+  <div class="item-card">
+    <div class="item-card-header">
+      <div class="item-card-title">3. Rotación de Logs de Docker y Políticas de Reinicio</div>
+      <span class="badge badge-alto">Prioridad Alta</span>
+    </div>
+    <div class="item-card-body">
+      <p>Para evitar que los archivos de registro de los contenedores consuman el disco duro con el paso de los meses, configure la rotación en <code>docker-compose.yml</code>:</p>
+      <pre>logging:
+  driver: "json-file"
+  options:
+    max-size: "20m"
+    max-file: "5"</pre>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SECCIÓN 5: NIVEL 3 FUNCIONALIDAD ================= -->
+<section id="funcionalidad">
+  <h2>5. Nivel 3: Funcionalidades Empresariales Recomendadas (Fase 2)</h2>
+  <p>
+    Mejoras sugeridas para una segunda fase evolutiva que incrementarán la productividad del despacho contable:
+  </p>
+
+  <div class="checklist-item">
+    <div class="check-icon check-warn">!</div>
+    <div>
+      <strong>Exportación de Reportes a Excel / CSV:</strong> Botones de descarga directa en Control Maestro, Cobros y Directorio de Clientes para análisis gerencial en hojas de cálculo.
+    </div>
+  </div>
+
+  <div class="checklist-item">
+    <div class="check-icon check-warn">!</div>
+    <div>
+      <strong>Recuperación de Contraseña por Correo (SMTP):</strong> Integración con un servicio de correo transaccional (Resend, SendGrid o Google Workspace) para permitir el autoservicio de "¿Olvidó su contraseña?".
+    </div>
+  </div>
+
+  <div class="checklist-item">
+    <div class="check-icon check-warn">!</div>
+    <div>
+      <strong>Generación de Archivos Planos SAR:</strong> Exportación de las compras registradas en el formato plano estructurado (.txt / .csv) que solicita el sistema DET Live del SAR para la DMC.
+    </div>
+  </div>
+
+  <div class="checklist-item">
+    <div class="check-icon check-warn">!</div>
+    <div>
+      <strong>Recordatorios Automáticos de WhatsApp / Correo:</strong> Automatización de los mensajes de aviso a clientes de Quimistán y cobros en los días 3 y 4 del mes calendario.
+    </div>
+  </div>
+</section>
+
+<!-- ================= SECCIÓN 6: CHECKLIST DE PRODUCCIÓN ================= -->
+<section id="checklist">
+  <h2>6. Checklist de Validación para el Paso a Producción</h2>
+  <div class="checklist-item">
+    <input type="checkbox" id="c1" style="width:18px; height:18px; margin-top:2px;">
+    <label for="c1">1. Generar nuevo secreto JWT de 64 caracteres en <code>.env.production</code>.</label>
+  </div>
+  <div class="checklist-item">
+    <input type="checkbox" id="c2" style="width:18px; height:18px; margin-top:2px;">
+    <label for="c2">2. Asignar contraseña segura a la base de datos PostgreSQL de producción.</label>
+  </div>
+  <div class="checklist-item">
+    <input type="checkbox" id="c3" style="width:18px; height:18px; margin-top:2px;">
+    <label for="c3">3. Configurar CORS restringido al dominio institucional (remover <code>*</code>).</label>
+  </div>
+  <div class="checklist-item">
+    <input type="checkbox" id="c4" style="width:18px; height:18px; margin-top:2px;">
+    <label for="c4">4. Configurar certificado SSL/TLS con Let's Encrypt para forzar HTTPS.</label>
+  </div>
+  <div class="checklist-item">
+    <input type="checkbox" id="c5" style="width:18px; height:18px; margin-top:2px;">
+    <label for="c5">5. Programar tarea cron diaria de respaldo con <code>pg_dump</code> y almacenamiento remoto.</label>
+  </div>
+  <div class="checklist-item">
+    <input type="checkbox" id="c6" style="width:18px; height:18px; margin-top:2px;">
+    <label for="c6">6. Activar limitador de tasa (rate limit) en el inicio de sesión.</label>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  ContaGestión © 2026 — Sistema Web de Control Contable y Cumplimiento Tributario SAR para Honduras.<br>
+  Reporte de Auditoría Técnica de Preparación para Producción.
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,171 @@
+================================================================================
+MANUAL DE CONTROL INTERNO Y ESTRUCTURA DE PROCESOS
+Optimización de Operaciones y Gestión Fiscal Mensual | Oficina de Servicios Contables
+================================================================================
+
+--------------------------------------------------------------------------------
+1. CALENDARIO CRÍTICO MENSUAL (FLUJO DE PROCESOS)
+--------------------------------------------------------------------------------
+
+[Días 3 o 4] - Fase de Notificación Previa (Clientes Quimistán)
+Responsables: Gestores asignados.
+* Notificar por WhatsApp a los clientes de Quimistán sobre la visita programada para recolectar información de compras y ventas.
+
+[Día 5] - Visita a Quimistán y Apertura del Periodo
+Responsables: Gestores asignados / Todo el equipo.
+* Visita: Recolección física de documentos en Quimistán.
+* Apertura General: Extracción de expedientes del archivo central. Enrique, Alejandra, Lizeth, Francis y María retiran los folders de sus respectivos clientes asignados. Se separan de inmediato los clientes con 'declaración en cero' para tramitarlas con prioridad.
+
+[Día 8] - Vencimiento: Declaración Mensual de Compras (DMC)
+Responsables: Lizeth (1), Alejandra (1), María (2).
+* Descargar plantillas digitales de los 4 clientes específicos.
+* Validación 1 (Formatos): Carga en el sistema para detectar errores en RTN, CAI o fechas.
+* Validación 2 (Sustancial): Verificar vigencia y rangos de facturación autorizados por el SAR.
+* Control de Riesgo: Si hay error, detener, comunicar al cliente, corregir y reubicar en el portal. Al ser aprobada, imprimir y archivar el comprobante.
+
+[Días 1 al 10] - Cierre de Declaraciones de Impuestos Convencionales
+Responsables: Todo el equipo (Recolección) -> Alejandra (Elaboración) -> Enrique (Revisión) -> Darío (Pago).
+* Del 1 al 7: Llamar o escribir a clientes, recibir documentación (física o digital), imprimir respaldos digitales, elaborar resúmenes de ventas y compras (hoja de trabajo), determinar saldos (a pago o a favor) y obtener la conformidad explícita del cliente.
+* Pasar a Alejandra: Elabora declaraciones de ventas, retenciones y otros impuestos. Imprime copia de oficina, separa boletín de pago y clasifica folders ('Con Pago' / 'Sin Pago').
+* Pasar a Enrique: Revisa contra la hoja de trabajo. Si está correcto, firma el control de clientes revisados.
+* Cobro y Pago: Los empleados cobran a sus clientes. Al recibir el depósito, Darío realiza el pago en línea (u ordena al banco según disponibilidad de tiempo). Enrique marca como 'Pagado'.
+
+[Día 10] - Vencimiento de Impuestos e Informativas Especiales
+Responsables: María.
+* Elaborar declaraciones informativas de retenciones (Salarios de los primeros días, y retenciones del 12.5%, 1%, dividendos, etc., según la información recibida).
+* Controlar en un registro independiente, imprimir, archivar y marcar como 'Listo'.
+
+[Día 11 en adelante] - Fase de Re-archivo y Posteo Contable
+Responsables: Todo el equipo / Alejandra / Lizeth.
+* Día 11: Re-archivar obligatoriamente todos los folders procesados en el archivo correspondiente por orden alfabético.
+* Procesamiento: Lizeth postea ventas y compras en hojas de Excel por orden alfabético. Una vez terminado, Alejandra importa o digita estos datos en el sistema contable general.
+* Agroforestería: Alejandra procesa de forma paralela la contabilidad de la empresa de agroforestería directamente en QuickBooks (conciliación por medio de banco).
+
+[Días 12 al 20] - Gestión de Gastos y Cobranza de Honorarios
+Responsables: Lizeth / Brayan / Enrique / María.
+* Gastos: Lizeth clasifica los gastos por actividad económica y evalúa la deducibilidad según ley (notifica al cliente los no deducibles). Monitorea omisiones y solicita documentos faltantes.
+* Cobros (Santa Bárbara): Lizeth organiza declaraciones de clientes con sus boletines, emite recibos por honorarios y comisiona a Brayan para el cobro físico.
+* Cuadrante de Caja: Lizeth elabora el reporte de cobros (depósitos vs. recibos), lo registra y se lo pasa a Enrique. Enrique lo audita y lo transfiere a María para su registro final en el sistema contable de bancos.
+
+[Días 21 al 30] - Actualización de Libros y Cierre de Estados Financieros
+Responsables: Francis / Alejandra / María.
+* Libros Legales: Francis actualiza los libros contables con la información del año anterior (utilizando las balanzas impresas proporcionadas por María) y gestiona la autorización de nuevos libros si se terminan.
+* Caja Chica: Francis realiza el cierre, manejo y control de los gastos de caja chica.
+* Estados Financieros: Alejandra sube las partidas finales (ventas, compras, gastos) al sistema para generar los estados financieros mensuales. María elabora los estados financieros de empresas con cuentas bancarias, el control de la firma contable y atiende requerimientos de créditos de clientes eventuales.
+
+
+--------------------------------------------------------------------------------
+2. MATRIZ DE RESPONSABILIDADES (SEGREGACIÓN DE FUNCIONES)
+--------------------------------------------------------------------------------
+
+PUESTO / COLABORADOR: Darío (Propietario / Gerente General)
+- Funciones Principales de Control:
+  * Toma de decisiones estratégicas de la empresa.
+  * Velar por las condiciones necesarias del equipo.
+  * Ejecución y pago de declaraciones online según disponibilidad.
+- Intersección / Entregable Clave:
+  * Recibe boletines aprobados por Enrique; libera los fondos y realiza los pagos.
+
+PUESTO / COLABORADOR: Enrique (Gerente de Operaciones)
+- Funciones Principales de Control:
+  * Supervisar y verificar el cumplimiento de todas las actividades.
+  * Revisión obligatoria de declaraciones vs resúmenes de compras/ventas.
+  * Control y marcado de clientes revisados y pagados.
+  * Verificación y auditoría del reporte de cobros de Lizeth.
+- Intersección / Entregable Clave:
+  * Firma la autorización de declaraciones; entrega reportes validados a María.
+
+PUESTO / COLABORADOR: María (Contadora)
+- Funciones Principales de Control:
+  * Registro de movimientos bancarios de la oficina y empresas a su cargo.
+  * Elaboración de declaraciones informativas de retención (Salarios, 12.5%, 1%, dividendos).
+  * Contabilización del reporte de cobros en el sistema de bancos.
+  * Elaboración de Estados Financieros para trámites de crédito.
+- Intersección / Entregable Clave:
+  * Provee balanzas a Francis; recibe reportes de cobro aprobados por Enrique.
+
+PUESTO / COLABORADOR: Alejandra (Auxiliar Contable)
+- Funciones Principales de Control:
+  * Elaboración general de declaraciones de impuestos de todos los clientes.
+  * Clasificación de folders (Con Pago / Sin Pago).
+  * Grabación y posteo en el sistema de las partidas de ventas, compras y gastos.
+  * Registro contable de la empresa en QuickBooks bancario.
+- Intersección / Entregable Clave:
+  * Recibe hojas de trabajo de gestores; entrega declaraciones a Enrique; recibe hojas de Lizeth.
+
+PUESTO / COLABORADOR: Lizeth (Auxiliar Contable)
+- Funciones Principales de Control:
+  * Posteo de ventas y compras en Excel por orden alfabético.
+  * Ordenamiento de declaraciones de clientes y adjuntar boletines.
+  * Emisión de recibos por honorarios, control y liquidación de cobros.
+  * Clasificación y revisión legal de gastos (Deducibles y No Deducibles).
+  * Solicitar gastos faltantes a clientes.
+- Intersección / Entregable Clave:
+  * Provee hojas de cálculo a Alejandra; coordina cobros con Brayan; entrega reportes a Enrique.
+
+PUESTO / COLABORADOR: Francis (Auxiliar Contable / Libros)
+- Funciones Principales de Control:
+  * Atención a sus clientes asignados del 1 al 10 (resúmenes).
+  * Actualización y control estricto de libros contables legales del año anterior.
+  * Manejo y control de los gastos de caja chica de la oficina.
+  * Solicitar nuevos libros cuando se terminen.
+- Intersección / Entregable Clave:
+  * Recibe balanzas de María para actualizar libros; solicita autorizaciones de nuevos libros.
+
+PUESTO / COLABORADOR: Brayan (Servicios Generales)
+- Funciones Principales de Control:
+  * Aseo general de la empresa.
+  * Gestión de mensajería externa: cobros indicados por Lizeth, retirar y entregar documentación a clientes.
+  * Apoyo operativo fuera de la oficina para el personal.
+- Intersección / Entregable Clave:
+  * Ejecuta las rutas físicas de cobro y entregas programadas por Lizeth y el equipo.
+
+
+--------------------------------------------------------------------------------
+3. CHECKLIST DE CONTROL INTERNO MENSUAL (GARANTÍA DE CERO OMISIONES)
+--------------------------------------------------------------------------------
+
+Sección A: Cumplimiento Fiscal (Días 1 al 10)
+[ ] Control de Expedientes: Verificación de que el 100% de los folders de clientes fueron retirados y asignados a su respectivo gestor al inicio del mes.
+[ ] Clientes en Cero: Declaraciones sin movimiento (en cero) tramitadas, presentadas y archivadas con prioridad en los primeros días.
+[ ] Conformidad del Cliente: Evidencia o registro de aceptación del cliente sobre el valor del impuesto determinado antes de proceder con Alejandra.
+[ ] Doble Validación de DMC: Control estricto de las 4 Declaraciones Mensuales de Compras en el portal del SAR antes del vencimiento del día 8.
+[ ] Filtro de Revisión Operativa: Verificación de que ninguna declaración sea presentada o enviada a pago sin la firma/revisión previa de Enrique.
+[ ] Cierre Informativo de Retenciones: Registro de retenciones especiales completado por María y conciliado con el libro de salarios antes del día 10.
+[ ] Conciliación de Pagos: Marcado final de boletines pagados en el control de clientes una vez confirmado el depósito y la transacción de Darío.
+
+Sección B: Procesamiento Contable y Post-Cierre (Días 11 al 30)
+[ ] Arqueo de Archivos: Verificación el día 11 de que todos los folders volvieron al archivo centralizado en estricto orden alfabético.
+[ ] Sincronización Contable: Hojas de cálculo en Excel de Lizeth finalizadas y entregadas a Alejandra para el posteo contable definitivo.
+[ ] Auditoría y Clasificación de Gastos: Reporte formal de Lizeth identificando gastos no deducibles y notificación oportuna al cliente.
+[ ] Cuadre de Ingresos de la Firma: Reporte de cobros mensual completamente cuadrado (Recibos Emitidos = Depósitos Bancarios), verificado por Enrique y contabilizado por María.
+[ ] Seguridad Legal de Libros: Inventario mensual de libros contables actualizado por Francis, asegurando la continuidad de registros del año anterior sin omisiones.
+
+
+--------------------------------------------------------------------------------
+4. RECOMENDACIONES CLAVE DE CONTROL INTERNO
+--------------------------------------------------------------------------------
+
+* Políticas de Documentación Digital y Resguardos: Establecer que toda información recibida por canales digitales (WhatsApp, correo) sea descargada inmediatamente a una estructura centralizada de carpetas compartidas con el nombre del cliente y el período (ej. 'Cliente_X_Mayo_2026'). Esto evita la pérdida de información ante ausencias imprevistas del personal.
+
+* Alertas de Plazos y Deslinde de Responsabilidad: Implementar una regla de corte estricta: si al día 6 del mes el cliente no ha enviado su documentación completa, se le emitirá una notificación formal de deslinde de responsabilidad por recargos tributarios, multas o intereses, protegiendo legalmente el prestigio de la firma contable.
+
+* Mitigación de Cuellos de Botella Operativos: Dado que Alejandra centraliza la elaboración de declaraciones y Enrique la revisión total entre los días 7 y 9, los gestores deben entregar resúmenes de forma escalonada a medida que los completen, evitando la acumulación masiva de expedientes el último día del vencimiento.
+
+
+--------------------------------------------------------------------------------
+5. ESTRUCTURA DE LA PLANTILLA DE CONTROL DE CLIENTES
+--------------------------------------------------------------------------------
+
+Para la correcta implementación de la plantilla solicitada por el Gerente de Operaciones, el archivo de seguimiento debe contener las siguientes columnas de verificación obligatoria:
+
+1. Código / RTN: Identificador único del cliente para mitigar riesgos de duplicidad o confusión.
+2. Nombre del Cliente: Razón social o denominación comercial del contribuyente.
+3. Gestor Asignado: Empleado responsable de la cuenta (Enrique, Alejandra, Lizeth, Francis, María).
+4. Estatus de Información: Estado de la recepción física o digital (Pendiente / Parcial / Completa).
+5. Fecha Conformidad: Día en que el cliente otorga su visto bueno explícito al resumen determinado.
+6. Revisado por Enrique: Casilla de verificación de control (SÍ / NO) obligatoria antes de la presentación fiscal.
+7. Tipo de Declaración: Clasificación operativa crítica: 'Con Pago' o 'En Cero / Sin Pago'.
+8. Estatus del Boletín: Estado del cobro del impuesto (No Requiere / Generado / Enviado a Cobro / Depósito Recibido).
+9. Confirmación de Pago: Validación final ejecutada por Darío en el sistema online (Pendiente / Pagado).
+10. Observaciones / Alertas: Espacio para incidencias, retrasos en entrega de facturas o notas fiscales.

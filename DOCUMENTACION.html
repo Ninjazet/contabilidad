@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="initial-scale=1, width=device-width" />
+<title>ContaGestión — Sistema de Gestión y Control Fiscal | Documentación</title>
+<style>
+  :root {
+    --primario: #064e3b;
+    --acento: #059669;
+    --acento-claro: #34d399;
+    --fondo: #f0fdf4;
+    --tarjeta: #ffffff;
+    --texto: #111827;
+    --texto-suave: #4b5563;
+    --borde: #e5e7eb;
+    --alerta: #b45309;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: var(--fondo);
+    color: var(--texto);
+    margin: 0;
+    line-height: 1.65;
+  }
+  header {
+    background: linear-gradient(135deg, #064e3b 0%, #065f46 100%);
+    color: #fff;
+    padding: 48px 24px 40px;
+    text-align: center;
+    border-bottom: 3px solid var(--acento-claro);
+  }
+  header h1 { margin: 0 0 8px; font-size: 2.1rem; font-weight: 700; letter-spacing: -0.02em; }
+  header h1 span { color: var(--acento-claro); }
+  header p { margin: 0; color: #a7f3d0; font-size: 1.05rem; }
+  main { max-width: 1040px; margin: 0 auto; padding: 36px 20px 80px; }
+  section {
+    background: var(--tarjeta);
+    border: 1px solid var(--borde);
+    border-radius: 14px;
+    padding: 32px 36px;
+    margin-bottom: 28px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+  }
+  h2 {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--primario);
+    border-bottom: 2px solid var(--acento);
+    padding-bottom: 10px;
+    margin-top: 0;
+    margin-bottom: 20px;
+  }
+  h3 { font-size: 1.08rem; font-weight: 600; color: var(--primario); margin: 20px 0 8px; }
+  p { margin: 0 0 14px; }
+  code {
+    background: #f3f4f6;
+    color: #111827;
+    border: 1px solid var(--borde);
+    border-radius: 5px;
+    padding: 2px 7px;
+    font-family: "SFMono-Regular", Consolas, monospace;
+    font-size: 0.88em;
+  }
+  table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 0.92rem; }
+  th, td { text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--borde); vertical-align: middle; }
+  th { background: #f9fafb; color: #374151; font-weight: 600; }
+  tr:hover { background: #fdfdfe; }
+  .badge {
+    display: inline-block;
+    padding: 3px 9px;
+    border-radius: 9999px;
+    font-size: 0.78rem;
+    font-weight: 600;
+  }
+  .badge-verde { background: #d1fae5; color: #065f46; }
+  .badge-azul { background: #dbeafe; color: #1e40af; }
+  .badge-amarillo { background: #fef3c7; color: #92400e; }
+  .alerta {
+    background: #ecfdf5;
+    border-left: 4px solid var(--acento);
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin: 18px 0;
+    font-size: 0.94rem;
+  }
+  .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin: 16px 0; }
+  .card-item {
+    background: #f9fafb;
+    border: 1px solid var(--borde);
+    border-radius: 10px;
+    padding: 16px 20px;
+  }
+  .card-item h4 { margin: 0 0 6px; font-size: 0.98rem; color: var(--primario); }
+  .card-item p { margin: 0; font-size: 0.88rem; color: var(--texto-suave); }
+  .flujo-paso {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 18px;
+    align-items: flex-start;
+  }
+  .paso-dia {
+    background: var(--primario);
+    color: #fff;
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 0.85rem;
+    min-width: 90px;
+    text-align: center;
+  }
+  .paso-info h4 { margin: 0 0 4px; font-size: 1rem; color: var(--primario); }
+  .paso-info p { margin: 0; font-size: 0.9rem; color: var(--texto-suave); }
+  footer { text-align: center; color: var(--texto-suave); font-size: 0.88rem; padding: 20px 0 40px; }
+</style>
+</head>
+<body>
+
+<nav style="background:#022c22; color:#e2e8f0; padding:10px 24px; font-size:0.88rem; border-bottom:1px solid rgba(255,255,255,0.1); position:sticky; top:0; z-index:100;">
+  <div style="max-width:1140px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
+    <div style="display:flex; gap:8px; flex-wrap:wrap;">
+      <span style="font-weight:700; color:#a7f3d0; margin-right:6px; align-self:center;">Documentación:</span>
+      <a href="TUTORIAL_POR_ROLES.html" style="padding:5px 12px; border-radius:9999px; text-decoration:none; font-size:0.82rem; font-weight:600; background:rgba(255,255,255,0.08); color:#cbd5e1;">Tutorial por Roles y Accesos</a>
+      <a href="TUTORIAL_ACCESO_TOTAL.html" style="padding:5px 12px; border-radius:9999px; text-decoration:none; font-size:0.82rem; font-weight:600; background:rgba(255,255,255,0.08); color:#cbd5e1;">Tutorial Maestro (Acceso Total)</a>
+      <a href="DOCUMENTACION.html" style="padding:5px 12px; border-radius:9999px; text-decoration:none; font-size:0.82rem; font-weight:600; background:#059669; color:#fff;">Manual de Arquitectura y SAR</a>
+      <a href="REPORTE_PRODUCCION.html" style="padding:5px 12px; border-radius:9999px; text-decoration:none; font-size:0.82rem; font-weight:600; background:rgba(255,255,255,0.08); color:#cbd5e1;">Reporte para Producción</a>
+    </div>
+    <div style="font-size:0.8rem; color:#a7f3d0;">
+      Servidor en Ejecución: <strong>http://localhost:5173</strong>
+    </div>
+  </div>
+</nav>
+
+<header>
+  <h1>ContaGestión — <span>Sistema Web de Control Contable y Fiscal</span></h1>
+  <p>Automatización de Operaciones, Cumplimiento Tributario SAR y Archivo de Expedientes</p>
+</header>
+
+<main>
+
+<!-- ============ RESUMEN EJECUTIVO ============ -->
+<section>
+  <h2>📌 1. Resumen Ejecutivo y Propósito</h2>
+  <p>
+    <strong>ContaGestión</strong> es una plataforma web especializada para la optimización y control interno de un <strong>despacho de servicios contables y fiscales en Honduras</strong>. El sistema traduce en una aplicación moderna e interactiva el <em>Manual de Control Interno y Estructura de Procesos</em> de la firma, coordinando el trabajo del equipo multidisciplinario a lo largo del mes calendario.
+  </p>
+  <div class="grid-2">
+    <div class="card-item">
+      <h4>Control de Expedientes Físicos y Digitales</h4>
+      <p>Localización exacta del folder físico de cada cliente (archivador, gaveta y número) con checklist de documentos obligatorios.</p>
+    </div>
+    <div class="card-item">
+      <h4>Cadena de Custodia Fiscal</h4>
+      <p>Segregación clara de responsabilidades: el gestor recolecta, Alejandra elabora, Enrique revisa y Darío ejecuta el pago.</p>
+    </div>
+    <div class="card-item">
+      <h4>Cumplimiento SAR Estricto</h4>
+      <p>Control de fechas de vencimiento de la Declaración Mensual de Compras (DMC), Ventas, Retenciones 1% y 12.5% y Dividendos.</p>
+    </div>
+    <div class="card-item">
+      <h4>Cobranza y Arqueo de Caja</h4>
+      <p>Gestión de recibos por honorarios, comisión de cobranza física y conciliación con el sistema contable de bancos.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CÓMO ESTÁ CONSTRUIDO ============ -->
+<section>
+  <h2>🛠️ 2. ¿Cómo está Construido? (Stack Tecnológico)</h2>
+  
+  <h3>Frontend</h3>
+  <ul>
+    <li><strong>Librería Base:</strong> React 19 con TypeScript, empaquetado ultra rápido con Vite 7.</li>
+    <li><strong>Diseño y UI:</strong> Tailwind CSS v4, componentes Radix UI / shadcn/ui, temas claro/oscuro y Lucide Icons.</li>
+    <li><strong>Navegación:</strong> <code>react-router-dom</code> con menú lateral persistente (AppSidebar) y cabecera global con buscador rápido.</li>
+    <li><strong>Gestión de Estados:</strong> Formularios controlados, validación de RTN hondureño (14 dígitos) y formatos de fecha regional.</li>
+  </ul>
+
+  <h3>Backend y Base de Datos</h3>
+  <ul>
+    <li><strong>Base de Datos:</strong> PostgreSQL 16 con 19 tablas relacionales y 11 migraciones que reflejan cada fase del manual de operaciones.</li>
+    <li><strong>Seguridad y RLS:</strong> Políticas de acceso basadas en roles operativos (administrador, gerente de operaciones, contador, auxiliar contable, asistente operativo).</li>
+    <li><strong>API Backend:</strong> Node.js con Express (`postgres-migration/api-contagestion` en puerto `3002`), pool de conexiones PostgreSQL nativo y autenticación JWT con bcrypt.</li>
+    <li><strong>Almacenamiento:</strong> Bóveda de archivos digitales asociados a cada expediente de cliente.</li>
+  </ul>
+</section>
+
+<!-- ============ CÓMO FUNCIONA / FLUJO DEL MANUAL ============ -->
+<section>
+  <h2>📅 3. ¿Cómo Funciona? (El Calendario Crítico Mensual)</h2>
+  <p>La operación del despacho sigue rigurosamente el calendario mensual de procesos:</p>
+
+  <div class="flujo-paso">
+    <div class="paso-dia">Días 3 y 4</div>
+    <div class="paso-info">
+      <h4>Fase de Notificación Previa (Clientes Quimistán)</h4>
+      <p>Los gestores asignados notifican por WhatsApp a los clientes de Quimistán sobre la visita programada para recolección de facturas de compras y ventas.</p>
+    </div>
+  </div>
+
+  <div class="flujo-paso">
+    <div class="paso-dia">Día 5</div>
+    <div class="paso-info">
+      <h4>Visita a Quimistán y Apertura del Periodo</h4>
+      <p>Viaje presencial para recolección física. El equipo extrae los folders del archivo central según clientes asignados, priorizando declaraciones en cero.</p>
+    </div>
+  </div>
+
+  <div class="flujo-paso">
+    <div class="paso-dia">Día 8</div>
+    <div class="paso-info">
+      <h4>Vencimiento: Declaración Mensual de Compras (DMC)</h4>
+      <p>Lizeth, Alejandra y María validan las plantillas digitales de los clientes clave en el módulo <code>/dmc</code>: validación de formato (RTN, CAI) y vigencia de rangos autorizados por el SAR.</p>
+    </div>
+  </div>
+
+  <div class="flujo-paso">
+    <div class="paso-dia">Días 1 al 10</div>
+    <div class="paso-info">
+      <h4>Cierre de Declaraciones de Impuestos Convencionales</h4>
+      <p>
+        <strong>1. Recolección:</strong> Todo el equipo elabora resúmenes de compras y ventas.<br>
+        <strong>2. Elaboración:</strong> Alejandra elabora las declaraciones y separa boletines de pago.<br>
+        <strong>3. Revisión:</strong> Enrique audita contra la hoja de trabajo y firma la aprobación.<br>
+        <strong>4. Pago:</strong> Tras recibir el depósito del cliente, Darío realiza el pago en línea y Enrique lo marca como 'Pagado'.
+      </p>
+    </div>
+  </div>
+
+  <div class="flujo-paso">
+    <div class="paso-dia">Día 10</div>
+    <div class="paso-info">
+      <h4>Vencimiento de Declaraciones Informativas</h4>
+      <p>María elabora y presenta las declaraciones de retención (Salarios, 12.5%, 1%, dividendos) en el módulo <code>/informativas</code>.</p>
+    </div>
+  </div>
+
+  <div class="flujo-paso">
+    <div class="paso-dia">Día 11+</div>
+    <div class="paso-info">
+      <h4>Re-archivo y Posteo Contable</h4>
+      <p>Re-archivo obligatorio de todos los folders por orden alfabético. Lizeth postea en Excel, Alejandra digita en el sistema contable y procesa QuickBooks para empresas de agroforestería.</p>
+    </div>
+  </div>
+
+  <div class="flujo-paso">
+    <div class="paso-dia">Días 12 al 20</div>
+    <div class="paso-info">
+      <h4>Gestión de Gastos y Cobranza de Honorarios</h4>
+      <p>Lizeth evalúa deducibilidad de gastos, emite recibos y comisiona a Brayan para cobro físico en Santa Bárbara. Enrique audita el arqueo y María lo registra en bancos.</p>
+    </div>
+  </div>
+
+  <div class="flujo-paso">
+    <div class="paso-dia">Días 21 al 30</div>
+    <div class="paso-info">
+      <h4>Libros Legales y Cierre de Estados Financieros</h4>
+      <p>Francis actualiza libros legales y concilia caja chica. Alejandra y María generan los estados financieros mensuales de las empresas.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MÓDULOS DE LA APLICACIÓN ============ -->
+<section>
+  <h2>🖥️ 4. Módulos de la Aplicación Web</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Ruta</th>
+        <th>Módulo</th>
+        <th>Funcionalidad Principal</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>/clientes</code></td>
+        <td>Cartera de Clientes</td>
+        <td>Registro con código automático (<code>CLI-0001</code>), RTN, régimen, gestor asignado y cuota mensual.</td>
+      </tr>
+      <tr>
+        <td><code>/expedientes</code></td>
+        <td>Archivo Físico / Digital</td>
+        <td>Ubicación en archivador, gaveta y folder; checklist de documentos obligatorios vigentes.</td>
+      </tr>
+      <tr>
+        <td><code>/control-maestro</code></td>
+        <td>Matriz de Declaraciones</td>
+        <td>Tablero semáforo mensual: recolección $\to$ elaboración $\to$ revisión $\to$ pago.</td>
+      </tr>
+      <tr>
+        <td><code>/dmc</code></td>
+        <td>Checklist DMC</td>
+        <td>Monitoreo del vencimiento del día 8 para los 4 clientes específicos obligados por el SAR.</td>
+      </tr>
+      <tr>
+        <td><code>/cobros</code></td>
+        <td>Control de Honorarios</td>
+        <td>Emisión de recibos, registro de depósitos, comisiones de cobro y conciliación bancaria.</td>
+      </tr>
+      <tr>
+        <td><code>/visitas-quimistan</code></td>
+        <td>Bitácora de Visitas</td>
+        <td>Seguimiento de visitas de los días 3 al 5 para recolección de documentación.</td>
+      </tr>
+      <tr>
+        <td><code>/contabilidad</code></td>
+        <td>Tareas Post-Declaración</td>
+        <td>Control de re-archivo alfabético, posteo en Excel, digitación y libros legales.</td>
+      </tr>
+      <tr>
+        <td><code>/auditoria</code></td>
+        <td>Bitácora General</td>
+        <td>Registro inmutable de toda acción, creación o cambio de estado realizado por cualquier empleado.</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ============ USUARIOS Y ACCESO ============ -->
+<section>
+  <h2>👥 5. Equipo de Trabajo y Cuentas de Acceso</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Colaborador</th>
+        <th>Correo</th>
+        <th>Contraseña</th>
+        <th>Rol en el Despacho</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Darío</strong></td>
+        <td><code>dario@contagestion.hn</code></td>
+        <td><code>Dario1234!</code></td>
+        <td><span class="badge badge-verde">Administrador (Gerente General)</span></td>
+      </tr>
+      <tr>
+        <td><strong>Enrique</strong></td>
+        <td><code>enrique@contagestion.hn</code></td>
+        <td><code>Enrique1234!</code></td>
+        <td><span class="badge badge-azul">Gerente de Operaciones (Auditor)</span></td>
+      </tr>
+      <tr>
+        <td><strong>María</strong></td>
+        <td><code>maria@contagestion.hn</code></td>
+        <td><code>Maria1234!</code></td>
+        <td><span class="badge badge-verde">Contador (Bancos e Informativas)</span></td>
+      </tr>
+      <tr>
+        <td><strong>Alejandra</strong></td>
+        <td><code>alejandra@contagestion.hn</code></td>
+        <td><code>Alejandra1234!</code></td>
+        <td><span class="badge badge-amarillo">Auxiliar Contable (Elaboración)</span></td>
+      </tr>
+      <tr>
+        <td><strong>Lizeth</strong></td>
+        <td><code>lizeth@contagestion.hn</code></td>
+        <td><code>Lizeth1234!</code></td>
+        <td><span class="badge badge-amarillo">Auxiliar Contable (Gastos y Cobros)</span></td>
+      </tr>
+      <tr>
+        <td><strong>Francis</strong></td>
+        <td><code>francis@contagestion.hn</code></td>
+        <td><code>Francis1234!</code></td>
+        <td><span class="badge badge-amarillo">Auxiliar Contable (Libros y Caja Chica)</span></td>
+      </tr>
+      <tr>
+        <td><strong>Brayan</strong></td>
+        <td><code>brayan@contagestion.hn</code></td>
+        <td><code>Brayan1234!</code></td>
+        <td><span class="badge badge-azul">Asistente Operativo (Cobranza y Visitas)</span></td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+</main>
+
+<footer>
+  ContaGestión &copy; 2026 — Despacho de Servicios Contables y Fiscales
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,1406 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="initial-scale=1, width=device-width" />
+<title>ContaGestión — Tutorial con Imágenes y Manual Visual Detallado</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primario: #064e3b;
+    --primario-oscuro: #022c22;
+    --acento: #059669;
+    --acento-claro: #34d399;
+    --fondo: #f8fafc;
+    --tarjeta: #ffffff;
+    --texto: #0f172a;
+    --texto-suave: #475569;
+    --borde: #e2e8f0;
+    --borde-acento: #a7f3d0;
+    --exito: #16a34a;
+    --alerta: #d97706;
+    --peligro: #dc2626;
+    --info: #0284c7;
+    --radio: 14px;
+    --radio-sm: 8px;
+    --sombra-md: 0 4px 6px -1px rgba(0,0,0,0.06), 0 2px 4px -2px rgba(0,0,0,0.06);
+    --sombra-lg: 0 10px 15px -3px rgba(0,0,0,0.08), 0 4px 6px -4px rgba(0,0,0,0.04);
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: var(--fondo);
+    color: var(--texto);
+    margin: 0;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, h4, h5 {
+    font-family: 'Outfit', sans-serif;
+    letter-spacing: -0.02em;
+    color: var(--primario-oscuro);
+  }
+
+  /* BARRA SUPERIOR */
+  .top-nav {
+    background: #022c22;
+    color: #e2e8f0;
+    padding: 10px 24px;
+    font-size: 0.88rem;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    backdrop-filter: blur(8px);
+  }
+  .top-nav-inner {
+    max-width: 1140px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .nav-pills { display: flex; gap: 8px; flex-wrap: wrap; }
+  .nav-pill {
+    padding: 5px 12px;
+    border-radius: 9999px;
+    text-decoration: none;
+    font-size: 0.82rem;
+    font-weight: 600;
+    transition: all 0.2s ease;
+  }
+  .nav-pill-active { background: var(--acento); color: #fff; }
+  .nav-pill-idle { background: rgba(255,255,255,0.08); color: #cbd5e1; }
+  .nav-pill-idle:hover { background: rgba(255,255,255,0.18); color: #fff; }
+  .env-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.8rem;
+    color: var(--acento-claro);
+    font-weight: 500;
+  }
+  .env-dot { width: 8px; height: 8px; border-radius: 50%; background: #10b981; }
+
+  /* HEADER */
+  header {
+    background: radial-gradient(circle at 80% 20%, #065f46 0%, #064e3b 45%, #022c22 100%);
+    color: #fff;
+    padding: 60px 24px 50px;
+    text-align: center;
+    border-bottom: 4px solid var(--acento);
+  }
+  header h1 {
+    margin: 0 0 12px;
+    font-size: 2.35rem;
+    font-weight: 800;
+    color: #fff;
+  }
+  header h1 span { color: var(--acento-claro); }
+  header p {
+    margin: 0 auto;
+    max-width: 820px;
+    color: #a7f3d0;
+    font-size: 1.1rem;
+    line-height: 1.55;
+  }
+  .header-meta {
+    margin-top: 24px;
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+  .meta-badge {
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 8px;
+    padding: 6px 14px;
+    font-size: 0.85rem;
+    color: #f1f5f9;
+  }
+
+  main {
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 40px 24px 90px;
+  }
+
+  /* INDICE RÁPIDO */
+  .toc-box {
+    background: #ffffff;
+    border: 1px solid var(--borde);
+    border-radius: var(--radio);
+    padding: 28px 32px;
+    margin-bottom: 40px;
+    box-shadow: var(--sombra-md);
+  }
+  .toc-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--primario);
+    margin-top: 0;
+    margin-bottom: 16px;
+    border-bottom: 2px solid var(--acento);
+    padding-bottom: 8px;
+  }
+  .toc-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 10px 18px;
+  }
+  .toc-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.88rem;
+    color: #334155;
+    text-decoration: none;
+    padding: 6px 10px;
+    border-radius: 6px;
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+  .toc-link:hover {
+    background: #f1f5f9;
+    color: var(--primario);
+    font-weight: 600;
+  }
+  .toc-num {
+    font-mono;
+    font-size: 0.78rem;
+    font-weight: 700;
+    background: #e2e8f0;
+    color: #475569;
+    padding: 2px 6px;
+    border-radius: 4px;
+  }
+
+  /* SECCIONES DE MÓDULO */
+  .modulo-card {
+    background: var(--tarjeta);
+    border: 1px solid var(--borde);
+    border-radius: var(--radio);
+    padding: 36px 40px;
+    margin-bottom: 44px;
+    box-shadow: var(--sombra-md);
+    scroll-margin-top: 80px;
+  }
+  @media (max-width: 640px) {
+    .modulo-card { padding: 24px 20px; }
+  }
+
+  .modulo-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 16px;
+    border-bottom: 2px solid var(--acento);
+    padding-bottom: 12px;
+  }
+  .modulo-title-group h2 {
+    font-size: 1.45rem;
+    font-weight: 700;
+    margin: 0 0 4px;
+  }
+  .modulo-route {
+    font-family: 'JetBrains Mono', Consolas, monospace;
+    font-size: 0.85rem;
+    color: var(--texto-suave);
+  }
+  .badge-tag {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 6px;
+    background: #e2e8f0;
+    color: #334155;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    font-weight: 700;
+  }
+
+  /* CONTENEDOR DE IMAGEN */
+  .img-frame {
+    background: #0f172a;
+    border: 2px solid var(--borde);
+    border-radius: var(--radio-sm);
+    padding: 8px;
+    margin: 22px 0 26px;
+    box-shadow: var(--sombra-lg);
+  }
+  .img-frame-bar {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 10px;
+    background: #1e293b;
+    border-radius: 4px;
+    margin-bottom: 8px;
+  }
+  .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+  .dot-red { background: #ef4444; }
+  .dot-yellow { background: #f59e0b; }
+  .dot-green { background: #10b981; }
+  .img-title {
+    color: #94a3b8;
+    font-size: 0.78rem;
+    font-family: 'JetBrains Mono', monospace;
+    margin-left: 8px;
+  }
+  .img-captura {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 4px;
+    background: #ffffff;
+  }
+
+  /* CAJAS DE INFORMACIÓN */
+  .grid-2 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    margin: 20px 0;
+  }
+  .sub-box {
+    background: #f8fafc;
+    border: 1px solid var(--borde);
+    border-radius: var(--radio-sm);
+    padding: 20px 22px;
+  }
+  .sub-box h3 {
+    font-size: 1.08rem;
+    margin-top: 0;
+    margin-bottom: 12px;
+    color: var(--primario);
+    border-bottom: 1px dashed var(--borde);
+    padding-bottom: 6px;
+  }
+
+  /* LISTAS Y ELEMENTOS */
+  .control-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .control-item {
+    background: #ffffff;
+    border: 1px solid var(--borde);
+    border-radius: 6px;
+    padding: 12px 14px;
+  }
+  .control-item-title {
+    font-family: 'JetBrains Mono', Consolas, monospace;
+    font-weight: 700;
+    font-size: 0.85rem;
+    color: var(--primario);
+    background: #f1f5f9;
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-bottom: 6px;
+  }
+  .control-item-desc {
+    margin: 0;
+    font-size: 0.88rem;
+    color: var(--texto);
+    line-height: 1.5;
+  }
+
+  /* PASOS */
+  .step-flow {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .step-row {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    background: #ffffff;
+    border: 1px solid var(--borde);
+    border-radius: 6px;
+    padding: 12px 14px;
+  }
+  .step-badge {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--primario);
+    color: #fff;
+    font-weight: 700;
+    font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .step-content h4 {
+    margin: 0 0 4px;
+    font-size: 0.95rem;
+    color: var(--primario);
+  }
+  .step-content p {
+    margin: 0;
+    font-size: 0.87rem;
+    color: var(--texto-suave);
+    line-height: 1.5;
+  }
+
+  /* ALERTAS */
+  .alerta-regla {
+    background: #fffbeb;
+    border-left: 4px solid var(--alerta);
+    border-radius: 6px;
+    padding: 12px 16px;
+    margin-top: 16px;
+    font-size: 0.88rem;
+    color: #92400e;
+  }
+
+  code {
+    background: #f1f5f9;
+    color: #0f172a;
+    border: 1px solid #e2e8f0;
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'JetBrains Mono', Consolas, monospace;
+    font-size: 0.88em;
+  }
+
+  footer {
+    text-align: center;
+    color: var(--texto-suave);
+    font-size: 0.9rem;
+    padding: 30px 20px 50px;
+    border-top: 1px solid var(--borde);
+  }
+</style>
+</head>
+<body>
+
+<!-- NAVEGACIÓN SUPERIOR -->
+<nav class="top-nav">
+  <div class="top-nav-inner">
+    <div class="nav-pills">
+      <span style="font-weight:700; color:#a7f3d0; margin-right:6px; align-self:center;">Documentación:</span>
+      <a href="TUTORIAL_POR_ROLES.html" class="nav-pill nav-pill-idle">Tutorial por Roles</a>
+      <a href="TUTORIAL_ACCESO_TOTAL.html" class="nav-pill nav-pill-idle">Tutorial Acceso Total</a>
+      <a href="TUTORIAL_CON_IMAGENES.html" class="nav-pill nav-pill-active">Tutorial con Imágenes</a>
+      <a href="REPORTE_PRODUCCION.html" class="nav-pill nav-pill-idle">Reporte para Producción</a>
+      <a href="DOCUMENTACION.html" class="nav-pill nav-pill-idle">Manual Arquitectura y SAR</a>
+    </div>
+    <div class="env-tag">
+      <span class="env-dot"></span> Servidor: <strong>http://localhost:5173</strong>
+    </div>
+  </div>
+</nav>
+
+<header>
+  <h1>ContaGestión — <span>Tutorial con Imágenes</span></h1>
+  <p>Manual visual completo con capturas de pantalla reales de cada módulo y diálogo. Aprenda qué hace cada botón, columna y opción operativa en la práctica.</p>
+  <div class="header-meta">
+    <div class="meta-badge">17 Capturas de Pantalla en Alta Definición</div>
+    <div class="meta-badge">Desglose Detallado de Controles</div>
+    <div class="meta-badge">Guía Operativa Paso a Paso</div>
+  </div>
+</header>
+
+<main>
+
+<!-- ================= INDICE RÁPIDO ================= -->
+<div class="toc-box">
+  <div class="toc-title">Índice Visual de Módulos y Pantallas</div>
+  <div class="toc-grid">
+    <a href="#m01" class="toc-link"><span class="toc-num">01</span> Panel Principal (Dashboard)</a>
+    <a href="#m02" class="toc-link"><span class="toc-num">02</span> Directorio de Clientes</a>
+    <a href="#m03" class="toc-link"><span class="toc-num">03</span> Diálogo de Alta de Cliente</a>
+    <a href="#m04" class="toc-link"><span class="toc-num">04</span> Control de Expedientes Físicos</a>
+    <a href="#m05" class="toc-link"><span class="toc-num">05</span> Bóveda Digital de Documentos</a>
+    <a href="#m06" class="toc-link"><span class="toc-num">06</span> Control Maestro Fiscal</a>
+    <a href="#m07" class="toc-link"><span class="toc-num">07</span> Checklist de Expedientes</a>
+    <a href="#m08" class="toc-link"><span class="toc-num">08</span> Declaraciones Informativas SAR</a>
+    <a href="#m09" class="toc-link"><span class="toc-num">09</span> Checklist DMC (Día 8)</a>
+    <a href="#m10" class="toc-link"><span class="toc-num">10</span> Cobros y Arqueo de Caja</a>
+    <a href="#m11" class="toc-link"><span class="toc-num">11</span> Visitas Quimistán (Día 5)</a>
+    <a href="#m12" class="toc-link"><span class="toc-num">12</span> Contabilidad y Libros Oficiales</a>
+    <a href="#m13" class="toc-link"><span class="toc-num">13</span> Calendario Fiscal de Vencimientos</a>
+    <a href="#m14" class="toc-link"><span class="toc-num">14</span> Personal y Asignación de Roles</a>
+    <a href="#m15" class="toc-link"><span class="toc-num">15</span> Bitácora de Auditoría Forense</a>
+    <a href="#m16" class="toc-link"><span class="toc-num">16</span> Configuración Maestra del Sistema</a>
+    <a href="#m17" class="toc-link"><span class="toc-num">17</span> Sistema de Ayuda Contextual (F1)</a>
+  </div>
+</div>
+
+<!-- ================= 01. PANEL ================= -->
+<section id="m01" class="modulo-card">
+  <div class="modulo-header">
+    <div class="modulo-title-group">
+      <h2>01. Panel Principal (Dashboard)</h2>
+      <div class="modulo-route">Ruta: / · Centro de mando general</div>
+    </div>
+    <span class="badge-tag">MOD-00</span>
+  </div>
+
+  <p>
+    El Panel Principal es la pantalla inicial que recibe a los usuarios tras iniciar sesión. Presenta un consolidado en vivo de las métricas de la firma, avance documental global y alertas inmediatas de vencimientos de obligaciones fiscales ante el SAR.
+  </p>
+
+  <div class="img-frame">
+    <div class="img-frame-bar">
+      <span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span>
+      <span class="img-title">Vista del Panel Principal en Tiempo Real (http://localhost:5173/)</span>
+    </div>
+    <img src="./capturas/01_dashboard.png" class="img-captura" alt="Captura del Panel Principal" />
+  </div>
+
+  <div class="grid-2">
+    <div class="sub-box">
+      <h3>¿Qué hace cada control y opción?</h3>
+      <div class="control-list">
+        <div class="control-item">
+          <div class="control-item-title">Tarjeta Clientes</div>
+          <p class="control-item-desc">Muestra la cantidad total de contribuyentes activos. El botón 'Ver clientes' redirige al catálogo general.</p>
+        </div>
+        <div class="control-item">
+          <div class="control-item-title">Tarjeta Expedientes</div>
+          <p class="control-item-desc">Indica el número de carpetas físicas registradas en el archivo central de la oficina.</p>
+        </div>
+        <div class="control-item">
+          <div class="control-item-title">Tarjeta Documentos</div>
+          <p class="control-item-desc">Contabiliza los archivos PDF e imágenes alojados en la bóveda digital.</p>
+        </div>
+        <div class="control-item">
+          <div class="control-item-title">Vencimientos (30 días)</div>
+          <p class="control-item-desc">Alerta sobre declaraciones con fecha límite programada en los próximos 30 días naturales.</p>
+        </div>
+        <div class="control-item">
+          <div class="control-item-title">Avance del Checklist</div>
+          <p class="control-item-desc">Barra de progreso porcentual calculada según los requisitos legales entregados sobre el total.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="sub-box">
+      <h3>¿Cómo se utiliza paso a paso?</h3>
+      <div class="step-flow">
+        <div class="step-row">
+          <span class="step-badge">1</span>
+          <div class="step-content">
+            <h4>Verificar alertas rojas</h4>
+            <p>Revise si existen declaraciones vencidas que requieran presentación inmediata ante el SAR.</p>
+          </div>
+        </div>
+        <div class="step-row">
+          <span class="step-badge">2</span>
+          <div class="step-content">
+            <h4>Auditar porcentaje de avance</h4>
+            <p>Monitoree que la barra del checklist supere el 80% antes del cierre del mes contable.</p>
+          </div>
+        </div>
+        <div class="step-row">
+          <span class="step-badge">3</span>
+          <div class="step-content">
+            <h4>Acceso rápido con F1</h4>
+            <p>Presione la tecla F1 o haga clic en el botón circular '?' junto a 'Panel' para desplegar la ayuda contextual.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 02. CLIENTES ================= -->
+<section id="m02" class="modulo-card">
+  <div class="modulo-header">
+    <div class="modulo-title-group">
+      <h2>02. Directorio de Clientes</h2>
+      <div class="modulo-route">Ruta: /clientes · Padrón de contribuyentes</div>
+    </div>
+    <span class="badge-tag">MOD-01</span>
+  </div>
+
+  <p>
+    En este catálogo se administran todas las personas naturales y jurídicas atendidas por la firma contable. Permite buscar contribuyentes por RTN o nombre, filtrar por estado y acceder a la ficha individual de cada cuenta.
+  </p>
+
+  <div class="img-frame">
+    <div class="img-frame-bar">
+      <span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span>
+      <span class="img-title">Directorio de Clientes con listado de empresas registradas (http://localhost:5173/clientes)</span>
+    </div>
+    <img src="./capturas/02_clientes.png" class="img-captura" alt="Captura del Directorio de Clientes" />
+  </div>
+
+  <div class="grid-2">
+    <div class="sub-box">
+      <h3>¿Qué hace cada opción?</h3>
+      <div class="control-list">
+        <div class="control-item">
+          <div class="control-item-title">+ Nuevo Cliente</div>
+          <p class="control-item-desc">Abre el formulario modal de captura para registrar un nuevo cliente con su RTN hondureño.</p>
+        </div>
+        <div class="control-item">
+          <div class="control-item-title">Campo de Búsqueda</div>
+          <p class="control-item-desc">Filtra la tabla en vivo por Razón Social, Nombre Comercial, RTN o Código único (CLI-0001).</p>
+        </div>
+        <div class="control-item">
+          <div class="control-item-title">Filtro 'Todos los estados'</div>
+          <p class="control-item-desc">Permite segmentar la tabla entre clientes Activos, Inactivos o Suspendidos.</p>
+        </div>
+        <div class="control-item">
+          <div class="control-item-title">Fila de Cliente</div>
+          <p class="control-item-desc">Al hacer clic sobre cualquier registro, se abre su Ficha 360 con datos de contacto y notas.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="sub-box">
+      <h3>Procedimiento de uso</h3>
+      <div class="step-flow">
+        <div class="step-row">
+          <span class="step-badge">1</span>
+          <div class="step-content">
+            <h4>Búsqueda rápida</h4>
+            <p>Escriba el RTN o parte del nombre en la barra de búsqueda para ubicar de inmediato al cliente.</p>
+          </div>
+        </div>
+        <div class="step-row">
+          <span class="step-badge">2</span>
+          <div class="step-content">
+            <h4>Alta de contribuyente</h4>
+            <p>Haga clic en '+ Nuevo Cliente' para registrar una nueva cuenta con sus contadores asignados.</p>
+          </div>
+        </div>
+      </div>
+      <div class="alerta-regla">
+        <strong>Regla SAR:</strong> Todo cliente debe poseer un RTN válido de 14 dígitos sin guiones ni caracteres alfabéticos.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 03. DIÁLOGO CLIENTE ================= -->
+<section id="m03" class="modulo-card">
+  <div class="modulo-header">
+    <div class="modulo-title-group">
+      <h2>03. Diálogo de Alta y Edición de Cliente</h2>
+      <div class="modulo-route">Formulario modal de captura de contribuyente</div>
+    </div>
+    <span class="badge-tag">MOD-01A</span>
+  </div>
+
+  <p>
+    Formulario modal estricto para la incorporación de clientes. Integra validaciones para segregación geográfica (clientes de Quimistán) y tratamiento preferencial para declaraciones en cero.
+  </p>
+
+  <div class="img-frame">
+    <div class="img-frame-bar">
+      <span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span>
+      <span class="img-title">Formulario Modal de Nuevo Cliente</span>
+    </div>
+    <img src="./capturas/03_nuevo_cliente_dialog.png" class="img-captura" alt="Captura del Diálogo de Alta de Cliente" />
+  </div>
+
+  <div class="grid-2">
+    <div class="sub-box">
+      <h3>Campos y Opciones del Formulario</h3>
+      <div class="control-list">
+        <div class="control-item">
+          <div class="control-item-title">Tipo de Cliente</div>
+          <p class="control-item-desc">Selector entre 'Persona Natural' o 'Empresa / Sociedad Mercantil'.</p>
+        </div>
+        <div class="control-item">
+          <div class="control-item-title">Nombre Legal / Razón Social</div>
+          <p class="control-item-desc">Nombre legal oficial registrado en el SAR y en el Registro Mercantil.</p>
+        </div>
+        <div class="control-item">
+          <div class="control-item-title">RTN (14 dígitos)</div>
+          <p class="control-item-desc">Número de identificación tributaria nacional (ejemplo: 08011990123456).</p>
+        </div>
+        <div class="control-item">
+          <div class="control-item-title">Contador Responsable / Secundario</div>
+          <p class="control-item-desc">Asigna qué colaboradores del despacho se harán cargo de la cuenta contable.</p>
+        </div>
+        <div class="control-item">
+          <div class="control-item-title">Casilla '¿Es de Quimistán?'</div>
+          <p class="control-item-desc">Incluye al cliente en la ruta logística presencial del día 5 de cada mes.</p>
+        </div>
+        <div class="control-item">
+          <div class="control-item-title">Casilla '¿Declara en cero?'</div>
+          <p class="control-item-desc">Marca para elaborar sus impuestos con prioridad durante los primeros días del mes.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="sub-box">
+      <h3>Cómo guardar un cliente</h3>
+      <div class="step-flow">
+        <div class="step-row">
+          <span class="step-badge">1</span>
+          <div class="step-content">
+            <h4>Llenar datos obligatorios</h4>
+            <p>Complete Razón Social, RTN y seleccione al menos un contador responsable.</p>
+          </div>
+        </div>
+        <div class="step-row">
+          <span class="step-badge">2</span>
+          <div class="step-content">
+            <h4>Guardar cliente</h4>
+            <p>Presione 'Guardar cliente'. El sistema generará automáticamente el código secuencial (CLI-XXXX).</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 04. EXPEDIENTES ================= -->
+<section id="m04" class="modulo-card">
+  <div class="modulo-header">
+    <div class="modulo-title-group">
+      <h2>04. Control de Expedientes Físicos</h2>
+      <div class="modulo-route">Ruta: /expedientes · Archivo central de carpetas</div>
+    </div>
+    <span class="badge-tag">MOD-02</span>
+  </div>
+
+  <p>
+    Supervisa la localización física exacta de cada folder en la oficina. Cada carpeta tiene coordenadas de archivador, gaveta y número de posición para garantizar que la documentación original nunca se extravíe.
+  </p>
+
+  <div class="img-frame">
+    <div class="img-frame-bar">
+      <span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span>
+      <span class="img-title">Módulo de Expedientes con estado de carpetas (http://localhost:5173/expedientes)</span>
+    </div>
+    <img src="./capturas/04_expedientes.png" class="img-captura" alt="Captura del Módulo de Expedientes" />
+  </div>
+
+  <div class="grid-2">
+    <div class="sub-box">
+      <h3>Controles del Módulo</h3>
+      <div class="control-list">
+        <div class="control-item">
+          <div class="control-item-title">+ Nuevo Expediente</div>
+          <p class="control-item-desc">Registra la apertura de una nueva carpeta física vinculada a un cliente.</p>
+        </div>
+        <div class="control-item">
+          <div class="control-item-title">Columna Ubicación</div>
+          <p class="control-item-desc">Indica el archivador, gaveta y folder físico donde debe buscarse la carpeta.</p>
+        </div>
+        <div class="control-item">
+          <div class="control-item-title">Estados de Custodia</div>
+          <p class="control-item-desc">Abierto (en trámite activo), En Revisión (con el contador) o Cerrado (resguardado).</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="sub-box">
+      <h3>Procedimiento de custodia</h3>
+      <div class="step-flow">
+        <div class="step-row">
+          <span class="step-badge">1</span>
+          <div class="step-content">
+            <h4>Extracción de folder</h4>
+            <p>Al retirar una carpeta para elaborar impuestos, cambie el estado a 'En Revisión'.</p>
+          </div>
+        </div>
+        <div class="step-row">
+          <span class="step-badge">2</span>
+          <div class="step-content">
+            <h4>Re-archivo obligatorio</h4>
+            <p>A partir del día 11 del mes, devuelva la carpeta a su gaveta y regrese el estado a 'Abierto' o 'Cerrado'.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 05. DOCUMENTOS ================= -->
+<section id="m05" class="modulo-card">
+  <div class="modulo-header">
+    <div class="modulo-title-group">
+      <h2>05. Bóveda Digital de Documentos</h2>
+      <div class="modulo-route">Ruta: /documentos · Repositorio seguro de archivos</div>
+    </div>
+    <span class="badge-tag">MOD-03</span>
+  </div>
+
+  <p>
+    Permite cargar y resguardar archivos digitales (PDFs, escaneos de escrituras, RTN, contratos y boletines de pago) vinculados a cada cliente para consulta rápida sin necesidad de extraer las carpetas físicas.
+  </p>
+
+  <div class="img-frame">
+    <div class="img-frame-bar">
+      <span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span>
+      <span class="img-title">Bóveda Digital de Documentos (http://localhost:5173/documentos)</span>
+    </div>
+    <img src="./capturas/05_documentos.png" class="img-captura" alt="Captura de la Bóveda de Documentos" />
+  </div>
+
+  <div class="grid-2">
+    <div class="sub-box">
+      <h3>Opciones de la Bóveda</h3>
+      <div class="control-list">
+        <div class="control-item">
+          <div class="control-item-title">Subir Documento</div>
+          <p class="control-item-desc">Permite seleccionar un archivo local, asignarlo a un cliente y clasificar su categoría.</p>
+        </div>
+        <div class="control-item">
+          <div class="control-item-title">Descarga e Inspección</div>
+          <p class="control-item-desc">Abre el archivo resguardado en el servidor para su visualización directa en el navegador.</p>
+        </div>
+        <div class="control-item">
+          <div class="control-item-title">Filtro por Cliente</div>
+          <p class="control-item-desc">Aísla los documentos pertenecientes a una empresa específica.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="sub-box">
+      <h3>Flujo de subida de archivos</h3>
+      <div class="step-flow">
+        <div class="step-row">
+          <span class="step-badge">1</span>
+          <div class="step-content">
+            <h4>Presionar 'Subir Documento'</h4>
+            <p>Seleccione el cliente correspondiente y el tipo de soporte probatorio.</p>
+          </div>
+        </div>
+        <div class="step-row">
+          <span class="step-badge">2</span>
+          <div class="step-content">
+            <h4>Confirmar archivo</h4>
+            <p>Adjunte el PDF o imagen; el sistema lo almacenará en el servidor local de forma segura.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 06. CONTROL MAESTRO ================= -->
+<section id="m06" class="modulo-card">
+  <div class="modulo-header">
+    <div class="modulo-title-group">
+      <h2>06. Control Maestro Fiscal (SAR)</h2>
+      <div class="modulo-route">Ruta: /control-maestro · Matriz mensual de declaraciones</div>
+    </div>
+    <span class="badge-tag">MOD-04</span>
+  </div>
+
+  <p>
+    Herramienta central de la firma contable. Muestra una matriz interactiva con todas las obligaciones de los clientes para el mes seleccionado, permitiendo transicionar su estado desde 'Pendiente' hasta 'Pagada'.
+  </p>
+
+  <div class="img-frame">
+    <div class="img-frame-bar">
+      <span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span>
+      <span class="img-title">Matriz mensual de Control Maestro (http://localhost:5173/control-maestro)</span>
+    </div>
+    <img src="./capturas/06_control_maestro.png" class="img-captura" alt="Captura de Control Maestro" />
+  </div>
+
+  <div class="grid-2">
+    <div class="sub-box">
+      <h3>Controles de la Matriz Fiscal</h3>
+      <div class="control-list">
+        <div class="control-item">
+          <div class="control-item-title">Generar periodo</div>
+          <p class="control-item-desc">Crea masivamente las obligaciones de todos los clientes activos para el mes seleccionado.</p>
+        </div>
+        <div class="control-item">
+          <div class="control-item-title">Selector de Año y Mes</div>
+          <p class="control-item-desc">Permite consultar el historial de periodos anteriores o abrir nuevos meses de trabajo.</p>
+        </div>
+        <div class="control-item">
+          <div class="control-item-title">Selector de Estado por Celda</div>
+          <p class="control-item-desc">Permite cambiar la declaración entre: Pendiente, En Proceso, Presentada y Pagada.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="sub-box">
+      <h3>Cadena de custodia fiscal</h3>
+      <div class="step-flow">
+        <div class="step-row">
+          <span class="step-badge">1</span>
+          <div class="step-content">
+            <h4>Elaboración</h4>
+            <p>El auxiliar digita compras y ventas y pasa la tarea a 'En Proceso'.</p>
+          </div>
+        </div>
+        <div class="step-row">
+          <span class="step-badge">2</span>
+          <div class="step-content">
+            <h4>Presentación SAR</h4>
+            <p>El contador envía la declaración y cambia el estado a 'Presentada'.</p>
+          </div>
+        </div>
+        <div class="step-row">
+          <span class="step-badge">3</span>
+          <div class="step-content">
+            <h4>Pago Bancario</h4>
+            <p>Tras confirmarse el depósito del cliente, se liquida en línea y se marca 'Pagada'.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 07. CHECKLIST ================= -->
+<section id="m07" class="modulo-card">
+  <div class="modulo-header">
+    <div class="modulo-title-group">
+      <h2>07. Checklist de Expedientes</h2>
+      <div class="modulo-route">Ruta: /checklist · Auditoría documental por cliente</div>
+    </div>
+    <span class="badge-tag">MOD-05</span>
+  </div>
+
+  <p>
+    Cuadrícula comparativa que supervisa la entrega de requisitos reglamentarios (Escritura, RTN, Contratos de Arrendamiento, Solvencias). Cada ítem marcado actualiza la barra de avance del Dashboard.
+  </p>
+
+  <div class="img-frame">
+    <div class="img-frame-bar">
+      <span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span>
+      <span class="img-title">Matriz de Checklist Documental (http://localhost:5173/checklist)</span>
+    </div>
+    <img src="./capturas/07_checklist.png" class="img-captura" alt="Captura del Checklist Documental" />
+  </div>
+
+  <div class="grid-2">
+    <div class="sub-box">
+      <h3>Opciones del Checklist</h3>
+      <div class="control-list">
+        <div class="control-item">
+          <div class="control-item-title">Casillas de Cotejo</div>
+          <p class="control-item-desc">Marque o desmarque con un clic la presencia física del documento en el expediente.</p>
+        </div>
+        <div class="control-item">
+          <div class="control-item-title">Guardado Automático</div>
+          <p class="control-item-desc">Cada cambio impacta en la base de datos de inmediato sin necesidad de botón de guardar.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="sub-box">
+      <h3>Auditoría de expedientes</h3>
+      <p>Utilice esta pantalla para detectar rápidamente qué clientes adeudan permisos municipales o escrituras actualizadas.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 08. INFORMATIVAS ================= -->
+<section id="m08" class="modulo-card">
+  <div class="modulo-header">
+    <div class="modulo-title-group">
+      <h2>08. Declaraciones Informativas SAR</h2>
+      <div class="modulo-route">Ruta: /informativas · Retenciones y plazos del Día 10</div>
+    </div>
+    <span class="badge-tag">MOD-06</span>
+  </div>
+
+  <p>
+    Control estricto de las declaraciones informativas de retención en la fuente: Retención del 1% sobre compras, 12.5% sobre honorarios profesionales, retención sobre sueldos y dividendos.
+  </p>
+
+  <div class="img-frame">
+    <div class="img-frame-bar">
+      <span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span>
+      <span class="img-title">Módulo de Declaraciones Informativas (http://localhost:5173/informativas)</span>
+    </div>
+    <img src="./capturas/08_informativas.png" class="img-captura" alt="Captura de Declaraciones Informativas" />
+  </div>
+
+  <div class="grid-2">
+    <div class="sub-box">
+      <h3>Controles y Opciones</h3>
+      <div class="control-list">
+        <div class="control-item">
+          <div class="control-item-title">+ Nueva Tarea</div>
+          <p class="control-item-desc">Abre el diálogo para registrar una obligación informativa a un cliente específico.</p>
+        </div>
+        <div class="control-item">
+          <div class="control-item-title">Selector de Mes</div>
+          <p class="control-item-desc">Filtra las informativas programadas para el mes en curso.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="sub-box">
+      <h3>Vencimiento legal SAR</h3>
+      <div class="alerta-regla">
+        <strong>Vencimiento Fatal:</strong> Todas las informativas deben presentarse a más tardar el <strong>Día 10</strong> de cada mes para evitar sanciones tributarias automáticas.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 09. DMC ================= -->
+<section id="m09" class="modulo-card">
+  <div class="modulo-header">
+    <div class="modulo-title-group">
+      <h2>09. Checklist DMC (Declaración Mensual de Compras)</h2>
+      <div class="modulo-route">Ruta: /dmc · Validación crítica del Día 8</div>
+    </div>
+    <span class="badge-tag">MOD-07</span>
+  </div>
+
+  <p>
+    Supervisa la validación de facturas de compras, CAI y rangos autorizados por el SAR. Permite verificar que las plantillas Excel cumplan los requisitos fiscales antes de su transmisión formal.
+  </p>
+
+  <div class="img-frame">
+    <div class="img-frame-bar">
+      <span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span>
+      <span class="img-title">Checklist de Declaración Mensual de Compras (http://localhost:5173/dmc)</span>
+    </div>
+    <img src="./capturas/09_dmc.png" class="img-captura" alt="Captura de Checklist DMC" />
+  </div>
+
+  <div class="grid-2">
+    <div class="sub-box">
+      <h3>Controles de Validación DMC</h3>
+      <div class="control-list">
+        <div class="control-item">
+          <div class="control-item-title">+ Nueva Verificación</div>
+          <p class="control-item-desc">Registra el inicio de revisión de compras para un cliente en el mes.</p>
+        </div>
+        <div class="control-item">
+          <div class="control-item-title">Casillas de Consistencia</div>
+          <p class="control-item-desc">Cotejo de RTN correcto, CAI vigente, fecha válida y validación SAR exitosa.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="sub-box">
+      <h3>Plazo impostergable</h3>
+      <div class="alerta-regla">
+        <strong>Día 8 del Mes:</strong> La DMC vence de forma ineludible el día 8 de cada mes. Las empresas con declaración en cero deben cerrarse durante los primeros 3 días.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 10. COBROS ================= -->
+<section id="m10" class="modulo-card">
+  <div class="modulo-header">
+    <div class="modulo-title-group">
+      <h2>10. Cobros y Cuadre de Caja</h2>
+      <div class="modulo-route">Ruta: /cobros · Honorarios y cobranza física</div>
+    </div>
+    <span class="badge-tag">MOD-08</span>
+  </div>
+
+  <p>
+    Administra la facturación por servicios del despacho, emisión de recibos foliados, comisiones a cobradores físicos en ruta (Santa Bárbara) y conciliación con depósitos bancarios.
+  </p>
+
+  <div class="img-frame">
+    <div class="img-frame-bar">
+      <span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span>
+      <span class="img-title">Módulo de Cobros y Caja (http://localhost:5173/cobros)</span>
+    </div>
+    <img src="./capturas/10_cobros.png" class="img-captura" alt="Captura de Cobros y Caja" />
+  </div>
+
+  <div class="grid-2">
+    <div class="sub-box">
+      <h3>Opciones de Cobro</h3>
+      <div class="control-list">
+        <div class="control-item">
+          <div class="control-item-title">+ Nuevo Cobro</div>
+          <p class="control-item-desc">Emite una cuenta por cobrar asignada a un cliente con monto en Lempiras (HNL).</p>
+        </div>
+        <div class="control-item">
+          <div class="control-item-title">Estados de Cobranza</div>
+          <p class="control-item-desc">Pendiente, Recibo emitido, En cobro, Cobrado y Conciliado.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="sub-box">
+      <h3>Procedimiento de liquidación</h3>
+      <p>Entre los días 12 y 20 se comisionan los cobros físicos y se audita el arqueo contra extractos bancarios.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 11. VISITAS QUIMISTAN ================= -->
+<section id="m11" class="modulo-card">
+  <div class="modulo-header">
+    <div class="modulo-title-group">
+      <h2>11. Visitas Quimistán (Logística Día 5)</h2>
+      <div class="modulo-route">Ruta: /visitas-quimistan · Recolección presencial</div>
+    </div>
+    <span class="badge-tag">MOD-09</span>
+  </div>
+
+  <p>
+    Hoja de ruta logística para el viaje mensual de recolección de facturas del día 5. Incluye control de llamadas previas de confirmación por WhatsApp en los días 3 y 4.
+  </p>
+
+  <div class="img-frame">
+    <div class="img-frame-bar">
+      <span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span>
+      <span class="img-title">Hoja de Ruta de Visitas Quimistán (http://localhost:5173/visitas-quimistan)</span>
+    </div>
+    <img src="./capturas/11_visitas_quimistan.png" class="img-captura" alt="Captura de Visitas Quimistán" />
+  </div>
+
+  <div class="grid-2">
+    <div class="sub-box">
+      <h3>Controles de la Gira</h3>
+      <div class="control-list">
+        <div class="control-item">
+          <div class="control-item-title">+ Programar Visita</div>
+          <p class="control-item-desc">Añade un cliente a la hoja de ruta presencial del periodo.</p>
+        </div>
+        <div class="control-item">
+          <div class="control-item-title">Botón WhatsApp</div>
+          <p class="control-item-desc">Enlace directo para notificar al cliente sobre la visita del equipo contable.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="sub-box">
+      <h3>Calendario de la gira</h3>
+      <div class="alerta-regla">
+        <strong>Días 3 y 4:</strong> Notificación previa.<br>
+        <strong>Día 5:</strong> Viaje presencial y recolección física de facturas de compras y ventas.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 12. CONTABILIDAD ================= -->
+<section id="m12" class="modulo-card">
+  <div class="modulo-header">
+    <div class="modulo-title-group">
+      <h2>12. Contabilidad y Libros Oficiales</h2>
+      <div class="modulo-route">Ruta: /contabilidad · Post-Día 10 y cierre financiero</div>
+    </div>
+    <span class="badge-tag">MOD-10</span>
+  </div>
+
+  <p>
+    Supervisa la digitación en sistemas contables (QuickBooks, Excel), conciliaciones de cuentas bancarias, actualización de libros legales y emisión de estados financieros mensuales.
+  </p>
+
+  <div class="img-frame">
+    <div class="img-frame-bar">
+      <span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span>
+      <span class="img-title">Módulo de Tareas Contables y Libros (http://localhost:5173/contabilidad)</span>
+    </div>
+    <img src="./capturas/12_contabilidad.png" class="img-captura" alt="Captura de Contabilidad" />
+  </div>
+
+  <div class="grid-2">
+    <div class="sub-box">
+      <h3>Tipos de Tareas Contables</h3>
+      <div class="control-list">
+        <div class="control-item">
+          <div class="control-item-title">Posteo Excel / QuickBooks</div>
+          <p class="control-item-desc">Registro de partidas de diario a partir de los resúmenes de compras y ventas.</p>
+        </div>
+        <div class="control-item">
+          <div class="control-item-title">Conciliación Bancaria</div>
+          <p class="control-item-desc">Cotejo entre movimientos del libro bancos y extractos de las instituciones financieras.</p>
+        </div>
+        <div class="control-item">
+          <div class="control-item-title">Libros Legales</div>
+          <p class="control-item-desc">Impresión y empaste de libros oficiales de Diario, Mayor y Balances.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="sub-box">
+      <h3>Etapa Post-Día 10</h3>
+      <p>Una vez presentados los impuestos ante el SAR, el equipo concentra sus esfuerzos entre los días 11 y 30 en el cierre contable.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 13. CALENDARIO ================= -->
+<section id="m13" class="modulo-card">
+  <div class="modulo-header">
+    <div class="modulo-title-group">
+      <h2>13. Calendario Fiscal de Vencimientos</h2>
+      <div class="modulo-route">Ruta: /calendario · Agenda cronológica interactiva</div>
+    </div>
+    <span class="badge-tag">MOD-11</span>
+  </div>
+
+  <p>
+    Planificador mensual que proyecta todas las declaraciones y tareas operativas sobre una cuadrícula de calendario. Permite anticipar los picos de trabajo y filtrar por estado o cliente.
+  </p>
+
+  <div class="img-frame">
+    <div class="img-frame-bar">
+      <span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span>
+      <span class="img-title">Calendario Fiscal Interactivo (http://localhost:5173/calendario)</span>
+    </div>
+    <img src="./capturas/13_calendario.png" class="img-captura" alt="Captura del Calendario Fiscal" />
+  </div>
+
+  <div class="grid-2">
+    <div class="sub-box">
+      <h3>Funcionalidades del Calendario</h3>
+      <div class="control-list">
+        <div class="control-item">
+          <div class="control-item-title">Navegación Mes Anterior / Siguiente</div>
+          <p class="control-item-desc">Permite explorar meses futuros o auditar el cumplimiento de meses pasados.</p>
+        </div>
+        <div class="control-item">
+          <div class="control-item-title">Filtros de Estado</div>
+          <p class="control-item-desc">Aísla tareas Pendientes, En Proceso o Completadas en la vista de cuadrícula.</p>
+        </div>
+        <div class="control-item">
+          <div class="control-item-title">Clic en Fecha</div>
+          <p class="control-item-desc">Muestra la lista detallada de obligaciones programadas para ese día específico.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="sub-box">
+      <h3>Uso operativo</h3>
+      <p>Disponible para todos los roles del sistema como herramienta de planificación diaria y semanal.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 14. PERSONAL ================= -->
+<section id="m14" class="modulo-card">
+  <div class="modulo-header">
+    <div class="modulo-title-group">
+      <h2>14. Personal y Asignación de Roles</h2>
+      <div class="modulo-route">Ruta: /personal · Directorio de colaboradores RBAC</div>
+    </div>
+    <span class="badge-tag">MOD-12</span>
+  </div>
+
+  <p>
+    Administra a los usuarios del sistema, sus cuentas de acceso, avatares institucionales y roles asignados dentro de la firma contable conforme al esquema de seguridad RBAC.
+  </p>
+
+  <div class="img-frame">
+    <div class="img-frame-bar">
+      <span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span>
+      <span class="img-title">Directorio de Personal y Roles (http://localhost:5173/personal)</span>
+    </div>
+    <img src="./capturas/14_personal.png" class="img-captura" alt="Captura del Directorio de Personal" />
+  </div>
+
+  <div class="grid-2">
+    <div class="sub-box">
+      <h3>Opciones de Personal</h3>
+      <div class="control-list">
+        <div class="control-item">
+          <div class="control-item-title">+ Nuevo Colaborador</div>
+          <p class="control-item-desc">Registra un nuevo usuario con correo institucional, contraseña y rol asignado.</p>
+        </div>
+        <div class="control-item">
+          <div class="control-item-title">Columna Rol</div>
+          <p class="control-item-desc">Indica el nivel de autorización: Administrador, Gerente, Contador, Auxiliar o Asistente.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="sub-box">
+      <h3>Acceso restringido</h3>
+      <p>Este catálogo solo es visible para el Gerente de Operaciones y el Administrador General.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 15. AUDITORÍA ================= -->
+<section id="m15" class="modulo-card">
+  <div class="modulo-header">
+    <div class="modulo-title-group">
+      <h2>15. Bitácora de Auditoría Forense</h2>
+      <div class="modulo-route">Ruta: /auditoria · Registro inmutable de transacciones</div>
+    </div>
+    <span class="badge-tag">MOD-13</span>
+  </div>
+
+  <p>
+    Bitácora de seguridad inmutable generada por PostgreSQL. Registra con estampa de tiempo qué usuario creó, modificó o eliminó cualquier dato en las tablas del sistema.
+  </p>
+
+  <div class="img-frame">
+    <div class="img-frame-bar">
+      <span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span>
+      <span class="img-title">Bitácora de Auditoría del Sistema (http://localhost:5173/auditoria)</span>
+    </div>
+    <img src="./capturas/15_auditoria.png" class="img-captura" alt="Captura de Auditoría" />
+  </div>
+
+  <div class="grid-2">
+    <div class="sub-box">
+      <h3>Columnas de la Bitácora</h3>
+      <div class="control-list">
+        <div class="control-item">
+          <div class="control-item-title">Usuario</div>
+          <p class="control-item-desc">Correo del colaborador que realizó la operación en la base de datos.</p>
+        </div>
+        <div class="control-item">
+          <div class="control-item-title">Acción y Entidad</div>
+          <p class="control-item-desc">Tipo de evento (INSERT, UPDATE, DELETE) y tabla afectada (clients, files, etc.).</p>
+        </div>
+        <div class="control-item">
+          <div class="control-item-title">Fecha y Hora</div>
+          <p class="control-item-desc">Timestamp exacto de la transacción para deslinde de responsabilidades.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="sub-box">
+      <h3>Inmutabilidad</h3>
+      <p>Los registros de auditoría no pueden ser alterados ni eliminados por ningún usuario.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 16. CONFIGURACIÓN ================= -->
+<section id="m16" class="modulo-card">
+  <div class="modulo-header">
+    <div class="modulo-title-group">
+      <h2>16. Configuración Maestra del Sistema</h2>
+      <div class="modulo-route">Ruta: /configuracion · Catálogos y perfil de administrador</div>
+    </div>
+    <span class="badge-tag">MOD-14</span>
+  </div>
+
+  <p>
+    Módulo exclusivo del Administrador General. Permite parametrizar el catálogo de impuestos del SAR, tipos de documentos legales y actualizar la contraseña del usuario maestro.
+  </p>
+
+  <div class="img-frame">
+    <div class="img-frame-bar">
+      <span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span>
+      <span class="img-title">Pantalla de Configuración Maestra (http://localhost:5173/configuracion)</span>
+    </div>
+    <img src="./capturas/16_configuracion.png" class="img-captura" alt="Captura de Configuración" />
+  </div>
+
+  <div class="grid-2">
+    <div class="sub-box">
+      <h3>Pestañas de Configuración</h3>
+      <div class="control-list">
+        <div class="control-item">
+          <div class="control-item-title">Obligaciones Fiscales</div>
+          <p class="control-item-desc">Catálogo de impuestos con su código SAR, día de vencimiento mensual y periodicidad.</p>
+        </div>
+        <div class="control-item">
+          <div class="control-item-title">Tipos de Documento</div>
+          <p class="control-item-desc">Categorías de archivos permitidas en la bóveda digital y checklist.</p>
+        </div>
+        <div class="control-item">
+          <div class="control-item-title">Mi Perfil</div>
+          <p class="control-item-desc">Actualización segura de la contraseña de acceso del administrador.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="sub-box">
+      <h3>Adaptabilidad legal</h3>
+      <p>Permite ajustar los días de vencimiento ante reformas fiscales aprobadas por el Congreso o el SAR.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 17. AYUDA CONTEXTUAL ================= -->
+<section id="m17" class="modulo-card">
+  <div class="modulo-header">
+    <div class="modulo-title-group">
+      <h2>17. Sistema de Ayuda Contextual en Pantalla (Aspel SAE / F1)</h2>
+      <div class="modulo-route">Panel deslizante interactivo · Accesible en cualquier pantalla</div>
+    </div>
+    <span class="badge-tag">AYUDA-F1</span>
+  </div>
+
+  <p>
+    Inspirado en el sistema Aspel SAE, cada pantalla del sistema cuenta con un botón circular '?' y escucha el atajo de teclado F1 para abrir un panel lateral con tutoriales y explicación detallada de cada opción sin abandonar el flujo de trabajo.
+  </p>
+
+  <div class="img-frame">
+    <div class="img-frame-bar">
+      <span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span>
+      <span class="img-title">Panel de Ayuda Contextual desplegado mediante F1 o botón circular '?'</span>
+    </div>
+    <img src="./capturas/17_ayuda_contextual.png" class="img-captura" alt="Captura de la Ayuda Contextual" />
+  </div>
+
+  <div class="grid-2">
+    <div class="sub-box">
+      <h3>Pestañas del Panel de Ayuda</h3>
+      <div class="control-list">
+        <div class="control-item">
+          <div class="control-item-title">¿Qué hace cada opción?</div>
+          <p class="control-item-desc">Desglose botón por botón de los controles disponibles en la pantalla activa.</p>
+        </div>
+        <div class="control-item">
+          <div class="control-item-title">Tutorial de uso</div>
+          <p class="control-item-desc">Instrucciones numeradas paso a paso con recomendaciones operativas.</p>
+        </div>
+        <div class="control-item">
+          <div class="control-item-title">Campos y columnas</div>
+          <p class="control-item-desc">Tabla de glosario con el significado de cada campo y validación.</p>
+        </div>
+        <div class="control-item">
+          <div class="control-item-title">Reglas y SAR</div>
+          <p class="control-item-desc">Normativa tributaria hondureña aplicable a ese módulo específico.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="sub-box">
+      <h3>Formas de activar la ayuda</h3>
+      <div class="step-flow">
+        <div class="step-row">
+          <span class="step-badge">1</span>
+          <div class="step-content">
+            <h4>Tecla F1</h4>
+            <p>Presione la tecla F1 en su teclado en cualquier momento para abrir el panel de ayuda de la pantalla actual.</p>
+          </div>
+        </div>
+        <div class="step-row">
+          <span class="step-badge">2</span>
+          <div class="step-content">
+            <h4>Icono circular '?'</h4>
+            <p>Haga clic en el botón circular verde '?' ubicado junto al título principal de cada módulo.</p>
+          </div>
+        </div>
+        <div class="step-row">
+          <span class="step-badge">3</span>
+          <div class="step-content">
+            <h4>Botón superior</h4>
+            <p>Utilice el botón '[ ? ] Ayuda (F1)' ubicado en la barra superior junto al buscador global.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  ContaGestión © 2026 — Sistema Web de Control Contable y Cumplimiento Tributario SAR para Honduras.<br>
+  Tutorial Visual con Capturas Reales de Pantalla para Capacitación de Colaboradores y Evaluadores.
+</footer>
+
+</body>
+</html>
